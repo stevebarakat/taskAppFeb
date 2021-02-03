@@ -25,7 +25,7 @@ const ControlPanel = ({ isDraggingX, updateDueDate, task, handleSetIsFocused }) 
 
   async function handleDateChange(date) {
     if (!date) {
-      updateDueDate(null, task.id);
+      updateDueDate(null, null, null, task.id);
     } else {
       const formattedDate = format(date, DATE_FORMAT);
       const distanceToNow = date && formatDistanceToNow(date);

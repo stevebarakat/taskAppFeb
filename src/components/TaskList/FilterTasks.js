@@ -8,7 +8,7 @@ export default function FilterTasks({
 
   return (
     <form onChange={e => handleSetFilterType(e.target.value)}>
-      <label htmlFor="all" style={{ paddingRight: '1rem' }}>
+      <label htmlFor="all">
         <RadioButton
           id="all"
           name="filtered-tasks"
@@ -18,7 +18,7 @@ export default function FilterTasks({
         />
         All
       </label>
-      <label htmlFor="todo" style={{ paddingRight: '1rem' }}>
+      <label htmlFor="todo">
         <RadioButton
           id="todo"
           name="filtered-tasks"
@@ -28,7 +28,7 @@ export default function FilterTasks({
         />
         Todo
       </label>
-      <label htmlFor="completed" style={{ paddingRight: '1rem' }}>
+      <label htmlFor="completed">
         <RadioButton
           id="completed"
           name="filtered-tasks"
@@ -36,9 +36,9 @@ export default function FilterTasks({
           value="completed"
           defaultChecked={filterType === 'completed'}
         />
-        Completed
+        Done
       </label>
-      <label htmlFor="dueSoon" style={{ paddingRight: '1rem' }}>
+      <label htmlFor="dueSoon">
         <RadioButton
           id="dueSoon"
           name="filtered-tasks"
@@ -46,9 +46,9 @@ export default function FilterTasks({
           value="dueSoon"
           defaultChecked={filterType === 'dueSoon'}
         />
-        Due Soon
+        Soon
       </label>
-      <label htmlFor="overdue" style={{ paddingRight: '1rem' }}>
+      <label htmlFor="overdue">
         <RadioButton
           id="overdue"
           name="filtered-tasks"
@@ -56,7 +56,7 @@ export default function FilterTasks({
           value="overdue"
           defaultChecked={filterType === 'overdue'}
         />
-        Overdue
+        Late
       </label>
     </form>
   );

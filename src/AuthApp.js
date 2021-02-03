@@ -81,14 +81,6 @@ function AuthApp({ logOutUser }) {
     docRef.update({ tasks: taskList });
   };
 
-  const updateDistanceToNow = (time, id) => {
-    const tempTasks = taskList;
-    const taskIndex = findIndex(taskList, { id });
-    tempTasks[taskIndex].distanceToNow = time;
-    setTaskList(tempTasks);
-    docRef.update({ tasks: taskList });
-  };
-
   const updateTaskList = (filteredTasks) => {
     (async () => {
       await docRef.update({ tasks: filteredTasks });
@@ -118,8 +110,6 @@ function AuthApp({ logOutUser }) {
         filterType={filterType}
         updateTask={updateTask}
         updateDueDate={updateDueDate}
-        
-        
         updateDateCompleted={updateDateCompleted}
       />
     </Layout>
