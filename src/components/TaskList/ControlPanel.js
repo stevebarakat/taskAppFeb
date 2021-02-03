@@ -1,16 +1,15 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 // import { AnimateSharedLayout } from 'framer-motion';
 import DatePicker from 'react-datepicker';
-import { format, differenceInHours, parse, parseISO, formatDistanceToNow } from 'date-fns';
+import { format, differenceInHours, parse, formatDistanceToNow } from 'date-fns';
 import { ExtraStuff } from '../../styles/style';
 import "react-datepicker/dist/react-datepicker.css";
 
 const DATE_FORMAT = "M/d/yyyy, h:mm a";
-let distanceToNow = "";
-let formattedDueDate = "";
-let parsedDate = "";
-let dueSoon = "";
 let timePickerSupport;
+let parsedDate = "";
+let distanceToNow = "";
+let dueSoon = false;
 
 (function () {
   var input = document.createElement('input');
@@ -22,23 +21,21 @@ let timePickerSupport;
   timePickerSupport = input.value !== notADateValue;
 })();
 
-const ControlPanel = ({ isDraggingX, updateDueDate, updateDistanceToNow, task, handleSetIsFocused }) => {
+const ControlPanel = ({ isDraggingX, updateDueDate, task, handleSetIsFocused }) => {
 
-  function handleDateChange(date) {
+  async function handleDateChange(date) {
     if (!date) {
-      updateDueDate("", task.id);
+      updateDueDate(null, task.id);
     } else {
-      console.log(format(date, DATE_FORMAT))
-      formattedDueDate = format(date, DATE_FORMAT);
-      distanceToNow = formatDistanceToNow(date);
-      updateDueDate(formattedDueDate, date, task.id);
-      updateDistanceToNow(distanceToNow, task.id);
+      const formattedDate = format(date, DATE_FORMAT);
+      const distanceToNow = date && formatDistanceToNow(date);
+      const dueSoon = differenceInHours(date, Date.now()) <= 48;
+      console.log(differenceInHours(date, Date.now()));
+      await updateDueDate(formattedDate, dueSoon, distanceToNow, task.id);
     }
   }
-
-  parsedDate = task.formattedDueDate && parse(task.formattedDueDate, 'M/d/yyyy, h:mm a', new Date());
-
-  console.log(task.unformattedDueDate)
+  
+  parsedDate = task.dueDate && parse(task.dueDate, 'M/d/yyyy, h:mm a', new Date());
 
   return (
     // <AnimateSharedLayout>
@@ -64,9 +61,11 @@ const ControlPanel = ({ isDraggingX, updateDueDate, updateDistanceToNow, task, h
         placeholderText="Set Due Date"
         isClearable
       /> <br />
-      {task.distanceToNow && "Due: " + task.distanceToNow + " from now" }<br />
+      {task.distanceToNow && "Due: " + task.distanceToNow + " from now"}<br />
       Created: {format(task.dateCreated, "MM/dd/yyyy")} at {format(task.dateCreated, "hh:mm a")} <br />
       {task.dateCompleted ? "Completed: " + format(task.dateCompleted, "MM/dd/yyyy") + " at " + format(task.dateCompleted, "hh:mm a") : null}
+      {console.log(task.dueSoon)}
+      {task.dueSoon ? "true" : "false"}
     </ExtraStuff>
     // </AnimateSharedLayout>
   );

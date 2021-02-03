@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { AnimateSharedLayout } from 'framer-motion';
 import TaskItem from './TaskItem';
 import { ListItemContainerWrap } from '../../styles/style';
-import { usePositionReorder } from './usePositionReorder';
+import { usePositionReorder } from '../../hooks/usePositionReorder';
 
 const DELETE_BTN_WIDTH = 70;
 
@@ -13,19 +13,19 @@ const TaskList = ({
   deleteTask,
   updateTask,
   updateTaskList,
-  updateDistanceToNow,
   handleSetTaskList,
   updateDueDate,
-  updateDateCompleted
+  updateDateCompleted,
 }) => {
   const FILTER_MAP = {
     all: () => true,
     todo: task => !task.isCompleted,
     completed: task => task.isCompleted,
+    dueSoon: task => task.dueSoon,
+    overdue: task => task.overdue,
     search: task => task.title.toLowerCase().includes(searchTerm)
   }
   const [updatePosition, updateOrder] = usePositionReorder(
-
     taskList,
     handleSetTaskList
   );
@@ -94,8 +94,9 @@ const TaskList = ({
                   taskList={taskList}
                   handleSetTaskList={handleSetTaskList}
                   updateDueDate={updateDueDate}
-                  updateDistanceToNow={updateDistanceToNow}
+                  
                   updateDateCompleted={updateDateCompleted}
+                  
                 />
               </ListItemContainerWrap>
             ))}

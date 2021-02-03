@@ -38,6 +38,26 @@ export default function FilterTasks({
         />
         Completed
       </label>
+      <label htmlFor="dueSoon" style={{ paddingRight: '1rem' }}>
+        <RadioButton
+          id="dueSoon"
+          name="filtered-tasks"
+          type="radio"
+          value="dueSoon"
+          defaultChecked={filterType === 'dueSoon'}
+        />
+        Due Soon
+      </label>
+      <label htmlFor="overdue" style={{ paddingRight: '1rem' }}>
+        <RadioButton
+          id="overdue"
+          name="filtered-tasks"
+          type="radio"
+          value="overdue"
+          defaultChecked={filterType === 'overdue'}
+        />
+        Overdue
+      </label>
     </form>
   );
 }

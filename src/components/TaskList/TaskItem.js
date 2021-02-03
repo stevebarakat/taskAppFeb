@@ -3,7 +3,7 @@ import { useState, useEffect } from "react";
 import { useFirestore, useUser } from 'reactfire';
 import { motion, AnimatePresence, AnimateSharedLayout } from 'framer-motion';
 import { findIndex } from 'lodash';
-import { useMeasurePosition } from "./useMeasurePosition";
+import { useMeasurePosition } from "../../hooks/useMeasurePosition";
 import { ListItem, ListItemContainer, EndCap, TaskText, DeleteButton, CheckBox, BtnLink } from '../../styles/style';
 import { MdExpandMore } from 'react-icons/md';
 import ControlPanel from './ControlPanel';
@@ -12,7 +12,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 const DELETE_BTN_WIDTH = 70;
 
-function TaskItem({ i, task, taskList, updateDateCompleted, handleSetTaskList, updateDueDate, updateDistanceToNow,  updatePosition, updateOrder, deleteTask, updateTask, handleDragEnd }) {
+function TaskItem({ i, task, taskList,  updateDateCompleted, handleSetTaskList, updateDueDate,  updatePosition, updateOrder, deleteTask, updateTask, handleDragEnd }) {
   const { register, watch } = useForm();
   const ref = useMeasurePosition((pos) => updatePosition(i, pos));
   const [isFocused, setIsFocused] = useState(false);
@@ -171,8 +171,9 @@ function TaskItem({ i, task, taskList, updateDateCompleted, handleSetTaskList, u
                 isDraggingX={isDraggingX}
                 task={task}
                 updateDueDate={updateDueDate}
-                updateDistanceToNow={updateDistanceToNow}
+                
                 handleSetIsFocused={handleSetIsFocused}
+                
               />
               :
               <div />
