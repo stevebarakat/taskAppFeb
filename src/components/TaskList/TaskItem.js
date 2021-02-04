@@ -18,7 +18,6 @@ function TaskItem({ i, task, taskList, updateDateCompleted, handleSetTaskList, u
   const [isFocused, setIsFocused] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [isDraggingX, setIsDraggingX] = useState(false);
-  const [bgColor, setBgColor] = useState("inherit");
   const [isShowing, setIsShowing] = useState(false);
   const taskCompleted = watch("completed");
   const user = useUser();
@@ -92,31 +91,17 @@ function TaskItem({ i, task, taskList, updateDateCompleted, handleSetTaskList, u
           ...item,
           isCompleted: taskCompleted,
           dateCompleted: taskCompleted ? Date.now() : null,
-          dueDate: item.dueDate && !taskCompleted ? item.dueDate : null,
-          distanceToNow: item.distanceToNow && !taskCompleted ? item.distanceToNow : null,
-          isDueSoon: item.dueSoon && taskCompleted ? !item.isDueSoon : false,
-          isOverdue: item.isOverdue && taskCompleted ? !item.isOverdue : false,
         };
         return updatedItem;
       }
       return item;
     });
   }
-  console.log(newList)
+
   useEffect(() => {
     handleSetTaskList(newList);
     docRef.update({ tasks: taskList });
-  }, [handleSetTaskList, newList, taskList, docRef]);
-
-  useEffect(() => {
-    if (task.isOverdue) {
-      setBgColor("black");
-    } else if (task.isDueSoon) {
-      setBgColor("hsla(357, 76%, 32%, 1.0)");
-    } else {
-      setBgColor("inherit");
-    }
-  }, [task]);
+  }, [handleSetTaskList, newList]);
 
   return (
     <>
@@ -176,21 +161,21 @@ function TaskItem({ i, task, taskList, updateDateCompleted, handleSetTaskList, u
                   initial="hidden"
                   animate="visible"
                   exit="hidden"
+                  style={{right: 0, top: 0}}
                 >
                   {task.distanceToNow && "Due in " + task.distanceToNow + " from now"}
                 </Badge>
               }
             </AnimatePresence>
-            {task.isOverdue && <Badge className="blink">Overdue!</Badge>}
+            {task.isOverdue && <Badge overdue style={{right: 0, top: 0}} className="blink">Overdue!</Badge>}
             <TaskText
               contentEditable
               suppressContentEditableWarning
               onKeyDown={e => handleKeyPress(e)}
               onBlur={e => updateTask(e, task.id)}
               style={{
-                textDecorationColor: "red",
                 textDecoration: task.isCompleted
-                  ? 'line-through 3px red'
+                  ? 'line-through 3px hsla(357, 76%, 32%, 1.0)'
                   : 'none',
               }}
             >

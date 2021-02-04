@@ -2,6 +2,34 @@ import styled from 'styled-components';
 import { inputBg, colorPrimary, borderColor, textColor, bodyBg, activeColor } from './colors';
 import { motion } from 'framer-motion';
 
+const handleStyleType = style => {
+  switch (style) {
+    case "textColor":
+      return `color: ${textColor}; background-color: ${inputBg}; border: 1px solid ${textColor};`;
+    case "activeColor":
+      return `color: ${textColor}; background-color: ${inputBg}; border: 1px solid ${textColor};`;
+    case "borderColor":
+      return `color: ${textColor}; background-color: ${inputBg}; border: 1px solid ${textColor};`;
+    case "inputBg":
+      return `color: ${textColor}; background-color: ${inputBg}; border: 1px solid ${textColor};`;
+    default:
+      return `color: "inherit";`;
+  }
+};
+
+export const Badge = styled(motion.div)`
+  ${({ style }) => handleStyleType(style)};
+  /* background: ${p => p.overdue ? activeColor : textColor}; */
+  font-size: 0.75rem;
+  display: inline-block;
+  /* text-transform: uppercase; */
+  line-height: 0.75rem;
+  position: absolute;
+  text-align: center;
+  padding: 0.15rem;
+  border-radius: 3px;
+`;
+
 export const Container = styled.div`
   max-width: 100%;
   width: 370px;
@@ -180,7 +208,7 @@ export const ListItemContainer = styled.div`
   }
 `;
 
-export const ListItemContainerWrap = styled(motion.div)`
+export const ListItemContainerWrap = styled.div`
   position: relative;
   border-bottom: 1px solid ${borderColor};
   &:focus {
@@ -189,6 +217,11 @@ export const ListItemContainerWrap = styled(motion.div)`
 `;
 
 export const TaskFormContainer = styled.div`
+  position: relative;
+  margin-top: 1.5rem;
+`;
+
+export const TaskFormForm = styled.div`
   display: flex;
   margin: 1rem 0;
 `;
@@ -472,21 +505,6 @@ export const Avatar = styled.img`
   &:focus {
   border: 2px solid ${textColor};
   }
-`;
-
-export const Badge = styled(motion.div)`
-  font-weight: 700;
-  color: ${p => p.dueSoon ? activeColor : textColor};
-  background: ${p => p.dueSoon ? textColor : activeColor};
-  font-size: 0.75rem;
-  display: inline-block;
-  /* text-transform: uppercase; */
-  line-height: 0.75rem;
-  position: absolute;
-  top: 3px;
-  right: 0;
-  padding: 0.15rem;
-  border-radius: 3px;
 `;
 
 export const FilterForm = styled.form`

@@ -1,5 +1,4 @@
 import React, { useEffect } from 'react';
-import { AnimateSharedLayout } from 'framer-motion';
 import TaskItem from './TaskItem';
 import { ListItemContainerWrap } from '../../styles/style';
 import { usePositionReorder } from '../../hooks/usePositionReorder';
