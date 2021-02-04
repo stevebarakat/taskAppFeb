@@ -25,10 +25,7 @@ const TaskList = ({
     overdue: task => task.isOverdue,
     search: task => task.title.toLowerCase().includes(searchTerm)
   }
-  const [updatePosition, updateOrder] = usePositionReorder(
-    taskList,
-    handleSetTaskList
-  );
+  const [updatePosition, updateOrder] = usePositionReorder(taskList, handleSetTaskList);
 
   useEffect(() => {
     updateTaskList(taskList);
@@ -54,8 +51,8 @@ const TaskList = ({
         }
         return item;
       });
-
       handleSetTaskList(newTasksList);
+      
     } else if (dragDistance < 0 && dragDistance <= -DELETE_BTN_WIDTH / 3) {
       const newTasksList = taskList.map((item) => {
         if (item.id === taskId) {

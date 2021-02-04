@@ -474,7 +474,7 @@ export const Avatar = styled.img`
   }
 `;
 
-export const Badge = styled.div`
+export const Badge = styled(motion.div)`
   font-weight: 700;
   color: ${p => p.dueSoon ? activeColor : textColor};
   background: ${p => p.dueSoon ? textColor : activeColor};

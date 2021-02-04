@@ -233,7 +233,12 @@ input[placeholder="mm/dd/yyyy hh:mm a"] {
   animation-iteration-count: 5;
 }
 
-.no-blink {
+.no-show {
+  opacity: 0;
+}
+
+.no-blink,
+.show {
   opacity: 1;
 }
 

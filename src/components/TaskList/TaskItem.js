@@ -19,12 +19,16 @@ function TaskItem({ i, task, taskList, updateDateCompleted, handleSetTaskList, u
   const [isDragging, setIsDragging] = useState(false);
   const [isDraggingX, setIsDraggingX] = useState(false);
   const [bgColor, setBgColor] = useState("inherit");
-  const [isBlinking, setIsBlinking] = useState(true);
+  const [isShowing, setIsShowing] = useState(false);
   const taskCompleted = watch("completed");
   const user = useUser();
   const db = useFirestore();
   const docRef = db.collection('tasklist').doc(user.uid);
   let newList = [];
+  const variants = {
+    visible: { opacity: 1 },
+    hidden: { opacity: 0 },
+  };
 
   const transition = {
     min: 0,
@@ -78,7 +82,7 @@ function TaskItem({ i, task, taskList, updateDateCompleted, handleSetTaskList, u
       }
     });
     handleSetTaskList(tempTasks);
-    docRef.update({ tasks: taskList });
+    docRef.update({ tasks: tempTasks });
   }
 
   function handleIsCompleted(id) {
@@ -88,18 +92,21 @@ function TaskItem({ i, task, taskList, updateDateCompleted, handleSetTaskList, u
           ...item,
           isCompleted: taskCompleted,
           dateCompleted: taskCompleted ? Date.now() : null,
-          distanceToNow: taskCompleted ? null : item.distanceToNow,
-          dueDate: taskCompleted ? null : item.dueDate,
-          isDueSoon: taskCompleted ? false : item.isDueSoon,
-          isOverdue: taskCompleted ? false : item.isOverdue,
+          dueDate: item.dueDate && !taskCompleted ? item.dueDate : null,
+          distanceToNow: item.distanceToNow && !taskCompleted ? item.distanceToNow : null,
+          isDueSoon: item.dueSoon && taskCompleted ? !item.isDueSoon : false,
+          isOverdue: item.isOverdue && taskCompleted ? !item.isOverdue : false,
         };
         return updatedItem;
       }
       return item;
     });
   }
-
-
+  console.log(newList)
+  useEffect(() => {
+    handleSetTaskList(newList);
+    docRef.update({ tasks: taskList });
+  }, [handleSetTaskList, newList, taskList, docRef]);
 
   useEffect(() => {
     if (task.isOverdue) {
@@ -110,10 +117,6 @@ function TaskItem({ i, task, taskList, updateDateCompleted, handleSetTaskList, u
       setBgColor("inherit");
     }
   }, [task]);
-
-  useEffect(() => {
-    handleSetTaskList(newList);
-  }, [handleSetTaskList, newList]);
 
   return (
     <>
@@ -146,12 +149,11 @@ function TaskItem({ i, task, taskList, updateDateCompleted, handleSetTaskList, u
         animate={{ x: task.isSwiped ? DELETE_BTN_WIDTH * -1 : 0 }}
         style={{ zIndex: isFocused || isDragging ? 5 : 1, position: "relative", background: "#212936" }}
       >
-        {console.log(isBlinking)}
+        {console.log(isShowing)}
         <ListItemContainer
           onKeyDown={e => handleTaskItemKeyPress(e)}
-          onMouseDown={() => task.isOverdue && setIsBlinking(false)}
-          onMouseEnter={() => task.isOverdue && setIsBlinking(true)}
-          onMouseLeave={() => task.isOverdue && setIsBlinking(false)}
+          onMouseEnter={() => (task.dueDate && !task.isOverdue) && setIsShowing(true)}
+          onMouseLeave={() => (task.dueDate && !task.isOverdue) && setIsShowing(false)}
         >
           <EndCap>
             <label style={{ width: 25, height: 25, alignSelf: "center" }}>
@@ -166,8 +168,20 @@ function TaskItem({ i, task, taskList, updateDateCompleted, handleSetTaskList, u
             </label>
           </EndCap>
           <ListItem>
-            {task.isDueSoon && <Badge dueSoon>Due Soon!</Badge>}
-            {task.isOverdue && <Badge className={isBlinking ? "blink" : "no-blink"}>Overdue!</Badge>}
+            <AnimatePresence>
+              {(isShowing && !task.isOverdue) &&
+                <Badge
+                  dueSoon
+                  variants={variants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="hidden"
+                >
+                  {task.distanceToNow && "Due in " + task.distanceToNow + " from now"}
+                </Badge>
+              }
+            </AnimatePresence>
+            {task.isOverdue && <Badge className="blink">Overdue!</Badge>}
             <TaskText
               contentEditable
               suppressContentEditableWarning
@@ -185,7 +199,11 @@ function TaskItem({ i, task, taskList, updateDateCompleted, handleSetTaskList, u
           </ListItem>
           <EndCap>
             <MdExpandMore
-              style={{ margin: "auto" }}
+              style={{
+                margin: "auto",
+                transform: task.isOpen ? "rotate(0deg)" : "rotate(90deg)",
+                transition: "all 0.25s ease-out"
+              }}
               onClick={handleOpen}
             />
           </EndCap>

@@ -59,7 +59,6 @@ const ControlPanel = ({ isDraggingX, updateDueDate, task, handleSetIsFocused }) 
         placeholderText="Set Due Date"
         isClearable
       /> <br />
-      {task.distanceToNow && "Due: " + task.distanceToNow + " from now"}<br />
       Created: {format(task.dateCreated, "MM/dd/yyyy")} at {format(task.dateCreated, "hh:mm a")} <br />
       {task.dateCompleted ? "Completed: " + format(task.dateCompleted, "MM/dd/yyyy") + " at " + format(task.dateCompleted, "hh:mm a") : null}
       {console.log(task.isDueSoon)}

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 
-const useUpdateLocalState = (db, user, handleSetTaskList, handleSetFilterType) => {
+const useUpdateLocalState = (db, user, handleSetTaskList) => {
 
   useEffect(() => {
     const docRef = db.collection('tasklist').doc(user.uid);
@@ -8,7 +8,7 @@ const useUpdateLocalState = (db, user, handleSetTaskList, handleSetFilterType) =
       if (!snapshot.data()) return;
       handleSetTaskList(snapshot.data().tasks);
     });
-  }, [ db, user, handleSetTaskList, handleSetFilterType ]);
+  }, [ db, user, handleSetTaskList ]);
 
 };
 export default useUpdateLocalState;

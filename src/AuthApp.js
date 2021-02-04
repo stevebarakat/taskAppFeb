@@ -28,9 +28,9 @@ function AuthApp({ logOutUser }) {
   const initialFilterType = () => localStorageRef?.filterType ?? 'all';
   const [filterType, setFilterType] = useState(initialFilterType);
 
-  const handleSetFilterType = useCallback((type) => {
+  const handleSetFilterType = (type) => {
     setFilterType(type);
-  }, []);
+  };
 
   const handleSetTaskList = useCallback((tasks) => {
     setTaskList(tasks);
