@@ -71,11 +71,12 @@ function AuthApp({ logOutUser }) {
     docRef.update({ tasks: taskList });
   };
 
-  const updateDueDate = (formattedDate, dueSoon, distanceToNow, id) => {
+  const updateDueDate = (formattedDate, dueSoon, overdue, distanceToNow, id) => {
     const tempTasks = taskList;
     const taskIndex = findIndex(taskList, { id });
     tempTasks[taskIndex].dueDate = formattedDate;
-    tempTasks[taskIndex].dueSoon = dueSoon;
+    tempTasks[taskIndex].isDueSoon = dueSoon;
+    tempTasks[taskIndex].isOverdue = overdue;
     tempTasks[taskIndex].distanceToNow = distanceToNow;
     setTaskList(tempTasks);
     docRef.update({ tasks: taskList });

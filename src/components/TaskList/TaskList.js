@@ -21,8 +21,8 @@ const TaskList = ({
     all: () => true,
     todo: task => !task.isCompleted,
     completed: task => task.isCompleted,
-    dueSoon: task => task.dueSoon,
-    overdue: task => task.overdue,
+    dueSoon: task => task.isDueSoon,
+    overdue: task => task.isOverdue,
     search: task => task.title.toLowerCase().includes(searchTerm)
   }
   const [updatePosition, updateOrder] = usePositionReorder(

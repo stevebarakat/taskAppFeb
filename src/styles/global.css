@@ -9,7 +9,8 @@
   --textColor: hsl(0, 0%, 93%);
   --borderColor: hsla(0, 0%, 93%, 0.5);
   /* --borderColor: #707070; */
-  --activeColor: hsla(0, 100%, 50%, 0.5);
+  /* --activeColor: hsla(0, 100%, 50%, 0.5); */
+  --activeColor: hsla(357, 76%, 32%, 1);
 }
 
 /* ELEMENTS */
@@ -20,7 +21,9 @@
     "Arial", "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans",
     "Helvetica Neue", sans-serif !important;
 }
-
+*:focus {
+  outline: none !important;
+}
 body {
   background: var(--bodyBg);
   font-weight: 400;
@@ -223,3 +226,25 @@ input[placeholder="mm/dd/yyyy hh:mm a"] {
   right: -1rem !important;
   border-left-color: var(--textColor) !important;
 } */
+
+.blink {
+  /* opacity: 1; */
+  animation: blinker 1s step-start infinite;
+  animation-iteration-count: 5;
+}
+
+.no-blink {
+  opacity: 1;
+}
+
+@keyframes blinker {
+  1% {
+    opacitiy: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}

@@ -4,7 +4,7 @@ import { useFirestore, useUser } from 'reactfire';
 import { motion, AnimatePresence, AnimateSharedLayout } from 'framer-motion';
 import { findIndex } from 'lodash';
 import { useMeasurePosition } from "../../hooks/useMeasurePosition";
-import { ListItem, ListItemContainer, EndCap, TaskText, DeleteButton, CheckBox, BtnLink } from '../../styles/style';
+import { Badge, ListItem, ListItemContainer, EndCap, TaskText, DeleteButton, CheckBox, BtnLink } from '../../styles/style';
 import { MdExpandMore } from 'react-icons/md';
 import ControlPanel from './ControlPanel';
 import { useForm } from 'react-hook-form';
@@ -12,12 +12,14 @@ import { v4 as uuidv4 } from 'uuid';
 
 const DELETE_BTN_WIDTH = 70;
 
-function TaskItem({ i, task, taskList,  updateDateCompleted, handleSetTaskList, updateDueDate,  updatePosition, updateOrder, deleteTask, updateTask, handleDragEnd }) {
+function TaskItem({ i, task, taskList, updateDateCompleted, handleSetTaskList, updateDueDate, updatePosition, updateOrder, deleteTask, updateTask, handleDragEnd }) {
   const { register, watch } = useForm();
   const ref = useMeasurePosition((pos) => updatePosition(i, pos));
   const [isFocused, setIsFocused] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [isDraggingX, setIsDraggingX] = useState(false);
+  const [bgColor, setBgColor] = useState("inherit");
+  const [isBlinking, setIsBlinking] = useState(true);
   const taskCompleted = watch("completed");
   const user = useUser();
   const db = useFirestore();
@@ -36,7 +38,7 @@ function TaskItem({ i, task, taskList,  updateDateCompleted, handleSetTaskList, 
   }
 
   function handleKeyPress(e) {
-    
+
     if (e.shiftKey && e.key === "Enter") {
       document.activeElement.focus();
       e.stopPropagation();
@@ -44,9 +46,9 @@ function TaskItem({ i, task, taskList,  updateDateCompleted, handleSetTaskList, 
       document.activeElement.blur();
       e.cancelBubble = true;
       e.stopPropagation();
-    } 
+    }
   }
-  
+
   function handleTaskItemKeyPress(e) {
     if (e.key === "Enter") {
       const docRef = db.collection('tasklist').doc(user.uid);
@@ -68,9 +70,9 @@ function TaskItem({ i, task, taskList,  updateDateCompleted, handleSetTaskList, 
     const tempTasks = taskList;
     const id = task.id;
     const taskIndex = findIndex(taskList, { id });
-    tempTasks.map((task, i) => {
+    tempTasks.map((_, i) => {
       if (taskIndex === i) {
-        tempTasks[taskIndex].isOpen = !tempTasks[taskIndex].isOpen;
+        tempTasks[i].isOpen = !tempTasks[i].isOpen;
       } else {
         tempTasks[i].isOpen = false;
       }
@@ -86,12 +88,28 @@ function TaskItem({ i, task, taskList,  updateDateCompleted, handleSetTaskList, 
           ...item,
           isCompleted: taskCompleted,
           dateCompleted: taskCompleted ? Date.now() : null,
+          distanceToNow: taskCompleted ? null : item.distanceToNow,
+          dueDate: taskCompleted ? null : item.dueDate,
+          isDueSoon: taskCompleted ? false : item.isDueSoon,
+          isOverdue: taskCompleted ? false : item.isOverdue,
         };
         return updatedItem;
       }
       return item;
     });
   }
+
+
+
+  useEffect(() => {
+    if (task.isOverdue) {
+      setBgColor("black");
+    } else if (task.isDueSoon) {
+      setBgColor("hsla(357, 76%, 32%, 1.0)");
+    } else {
+      setBgColor("inherit");
+    }
+  }, [task]);
 
   useEffect(() => {
     handleSetTaskList(newList);
@@ -128,8 +146,12 @@ function TaskItem({ i, task, taskList,  updateDateCompleted, handleSetTaskList, 
         animate={{ x: task.isSwiped ? DELETE_BTN_WIDTH * -1 : 0 }}
         style={{ zIndex: isFocused || isDragging ? 5 : 1, position: "relative", background: "#212936" }}
       >
+        {console.log(isBlinking)}
         <ListItemContainer
           onKeyDown={e => handleTaskItemKeyPress(e)}
+          onMouseDown={() => task.isOverdue && setIsBlinking(false)}
+          onMouseEnter={() => task.isOverdue && setIsBlinking(true)}
+          onMouseLeave={() => task.isOverdue && setIsBlinking(false)}
         >
           <EndCap>
             <label style={{ width: 25, height: 25, alignSelf: "center" }}>
@@ -144,6 +166,8 @@ function TaskItem({ i, task, taskList,  updateDateCompleted, handleSetTaskList, 
             </label>
           </EndCap>
           <ListItem>
+            {task.isDueSoon && <Badge dueSoon>Due Soon!</Badge>}
+            {task.isOverdue && <Badge className={isBlinking ? "blink" : "no-blink"}>Overdue!</Badge>}
             <TaskText
               contentEditable
               suppressContentEditableWarning
@@ -171,9 +195,7 @@ function TaskItem({ i, task, taskList,  updateDateCompleted, handleSetTaskList, 
                 isDraggingX={isDraggingX}
                 task={task}
                 updateDueDate={updateDueDate}
-                
                 handleSetIsFocused={handleSetIsFocused}
-                
               />
               :
               <div />

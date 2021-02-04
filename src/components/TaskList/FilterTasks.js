@@ -1,5 +1,5 @@
 import React from 'react';
-import { RadioButton } from '../../styles/style';
+import { OptionWrap, RadioButton, FilterForm } from '../../styles/style';
 
 export default function FilterTasks({
   filterType,
@@ -7,57 +7,67 @@ export default function FilterTasks({
 }) {
 
   return (
-    <form onChange={e => handleSetFilterType(e.target.value)}>
-      <label htmlFor="all">
-        <RadioButton
-          id="all"
-          name="filtered-tasks"
-          type="radio"
-          value="all"
-          defaultChecked={filterType === 'all'}
-        />
+    <FilterForm onChange={e => handleSetFilterType(e.target.value)}>
+      <OptionWrap>
+        <label htmlFor="all">
+          <RadioButton
+            id="all"
+            name="filtered-tasks"
+            type="radio"
+            value="all"
+            defaultChecked={filterType === 'all'}
+          />
         All
       </label>
-      <label htmlFor="todo">
-        <RadioButton
-          id="todo"
-          name="filtered-tasks"
-          type="radio"
-          value="todo"
-          defaultChecked={filterType === 'todo'}
-        />
-        Todo
+      </OptionWrap>
+      <OptionWrap>
+        <label htmlFor="todo">
+          <RadioButton
+            id="todo"
+            name="filtered-tasks"
+            type="radio"
+            value="todo"
+            defaultChecked={filterType === 'todo'}
+          />
+        To Do
       </label>
-      <label htmlFor="completed">
-        <RadioButton
-          id="completed"
-          name="filtered-tasks"
-          type="radio"
-          value="completed"
-          defaultChecked={filterType === 'completed'}
-        />
-        Done
+      </OptionWrap>
+      <OptionWrap>
+        <label htmlFor="dueSoon">
+          <RadioButton
+            id="dueSoon"
+            name="filtered-tasks"
+            type="radio"
+            value="dueSoon"
+            defaultChecked={filterType === 'dueSoon'}
+          />
+        Due Soon
       </label>
-      <label htmlFor="dueSoon">
-        <RadioButton
-          id="dueSoon"
-          name="filtered-tasks"
-          type="radio"
-          value="dueSoon"
-          defaultChecked={filterType === 'dueSoon'}
-        />
-        Soon
-      </label>
-      <label htmlFor="overdue">
-        <RadioButton
-          id="overdue"
-          name="filtered-tasks"
-          type="radio"
-          value="overdue"
-          defaultChecked={filterType === 'overdue'}
-        />
+      </OptionWrap>
+      <OptionWrap>
+        <label htmlFor="overdue">
+          <RadioButton
+            id="overdue"
+            name="filtered-tasks"
+            type="radio"
+            value="overdue"
+            defaultChecked={filterType === 'overdue'}
+          />
         Late
       </label>
-    </form>
+      </OptionWrap>
+      <OptionWrap>
+        <label htmlFor="completed">
+          <RadioButton
+            id="completed"
+            name="filtered-tasks"
+            type="radio"
+            value="completed"
+            defaultChecked={filterType === 'completed'}
+          />
+        Done
+      </label>
+      </OptionWrap>
+    </FilterForm>
   );
 }

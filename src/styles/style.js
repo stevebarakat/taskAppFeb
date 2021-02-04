@@ -8,9 +8,10 @@ export const Container = styled.div`
   border: 1px solid ${borderColor};
   margin: 0 auto;
   padding-bottom: 0.5rem;
-`;
+  `;
 
 export const Content = styled.main`
+  min-height: 100%;
   max-width: 800px;
   margin: 0 1rem 1rem;
   padding: 0;
@@ -195,9 +196,10 @@ export const TaskFormContainer = styled.div`
 export const TaskText = styled.div`
     padding: 0 0.1rem;
     cursor: text;
+    color: ${p => p.overdue ? 'red' : 'inherit'};
     &:focus {
     /* border-bottom: 1px solid ${textColor}; */
-  }
+    }
 `;
 
 export const Center = styled.div`
@@ -323,7 +325,7 @@ export const DeleteButton = styled.div`
   justify-content: center;
   align-items: center;
   transform: translateY(-50%);
-  background-color: red;
+  background-color: ${activeColor};
   cursor: pointer;
 `;
 
@@ -470,4 +472,28 @@ export const Avatar = styled.img`
   &:focus {
   border: 2px solid ${textColor};
   }
+`;
+
+export const Badge = styled.div`
+  font-weight: 700;
+  color: ${p => p.dueSoon ? activeColor : textColor};
+  background: ${p => p.dueSoon ? textColor : activeColor};
+  font-size: 0.75rem;
+  display: inline-block;
+  /* text-transform: uppercase; */
+  line-height: 0.75rem;
+  position: absolute;
+  top: 3px;
+  right: 0;
+  padding: 0.15rem;
+  border-radius: 3px;
+`;
+
+export const FilterForm = styled.form`
+  border-bottom: 1px solid ${borderColor};
+  padding-bottom: 1rem;
+`;
+
+export const OptionWrap = styled.div`
+  display: inline-block;
 `;

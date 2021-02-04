@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 // import { AnimateSharedLayout } from 'framer-motion';
 import DatePicker from 'react-datepicker';
 import { format, differenceInHours, parse, formatDistanceToNow } from 'date-fns';
@@ -7,9 +7,6 @@ import "react-datepicker/dist/react-datepicker.css";
 
 const DATE_FORMAT = "M/d/yyyy, h:mm a";
 let timePickerSupport;
-let parsedDate = "";
-let distanceToNow = "";
-let dueSoon = false;
 
 (function () {
   var input = document.createElement('input');
@@ -23,19 +20,20 @@ let dueSoon = false;
 
 const ControlPanel = ({ isDraggingX, updateDueDate, task, handleSetIsFocused }) => {
 
-  async function handleDateChange(date) {
+  function handleDateChange(date) {
     if (!date) {
-      updateDueDate(null, null, null, task.id);
+      updateDueDate(null, null, null, null, task.id);
     } else {
       const formattedDate = format(date, DATE_FORMAT);
       const distanceToNow = date && formatDistanceToNow(date);
-      const dueSoon = differenceInHours(date, Date.now()) <= 48;
-      console.log(differenceInHours(date, Date.now()));
-      await updateDueDate(formattedDate, dueSoon, distanceToNow, task.id);
+      const diffInHours = differenceInHours(date, Date.now());
+      const dueSoon = diffInHours <= 48 && diffInHours >= 0;
+      const overdue = diffInHours < 0;
+      updateDueDate(formattedDate, dueSoon, overdue, distanceToNow, task.id);
     }
   }
   
-  parsedDate = task.dueDate && parse(task.dueDate, 'M/d/yyyy, h:mm a', new Date());
+  const parsedDate = task.dueDate && parse(task.dueDate, 'M/d/yyyy, h:mm a', new Date());
 
   return (
     // <AnimateSharedLayout>
@@ -64,8 +62,9 @@ const ControlPanel = ({ isDraggingX, updateDueDate, task, handleSetIsFocused }) 
       {task.distanceToNow && "Due: " + task.distanceToNow + " from now"}<br />
       Created: {format(task.dateCreated, "MM/dd/yyyy")} at {format(task.dateCreated, "hh:mm a")} <br />
       {task.dateCompleted ? "Completed: " + format(task.dateCompleted, "MM/dd/yyyy") + " at " + format(task.dateCompleted, "hh:mm a") : null}
-      {console.log(task.dueSoon)}
-      {task.dueSoon ? "true" : "false"}
+      {console.log(task.isDueSoon)}
+      due soon: {task.isDueSoon ? "true" : "false"}<br />
+      overdue: {task.isOverdue ? "true" : "false"}
     </ExtraStuff>
     // </AnimateSharedLayout>
   );
