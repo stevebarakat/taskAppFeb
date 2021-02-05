@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from 'styled-components/macro';
 import { inputBg, colorPrimary, borderColor, textColor, bodyBg, activeColor } from './colors';
 import { motion } from 'framer-motion';
 
