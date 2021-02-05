@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import TaskItem from './TaskItem';
-import { ListItemContainerWrap } from '../../styles/style';
+import { AnimatePresence, AnimateSharedLayout } from 'framer-motion';
+import { ListContainer, ListItemContainerWrap } from '../../styles/style';
 import { usePositionReorder } from '../../hooks/usePositionReorder';
 
 const DELETE_BTN_WIDTH = 70;
@@ -68,17 +69,25 @@ const TaskList = ({
   };
 
   return (
-    <>
+    <ListContainer>
+    <AnimateSharedLayout type="crossfade">
       {taskList.length === 0 ? (
         <p>You don't have any tasks.</p>
       ) : (
-        <>
+        <AnimatePresence initial={false}>
             {taskList
             ?.filter(FILTER_MAP[filterType])
             .filter(task => task.title
               .toLowerCase()
               .includes(searchTerm)).map((task, i) => (
-              <ListItemContainerWrap key={task.id}>
+              <ListItemContainerWrap 
+                  dragX
+                  layout 
+                  position
+                  key={task.id} 
+                  initial={{ opacity: 0, y: 0 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: "-100%" }}>
                 <TaskItem
                   i={i}
                   task={task}
@@ -90,15 +99,14 @@ const TaskList = ({
                   taskList={taskList}
                   handleSetTaskList={handleSetTaskList}
                   updateDueDate={updateDueDate}
-                  
                   updateDateCompleted={updateDateCompleted}
-                  
                 />
               </ListItemContainerWrap>
             ))}
-        </>
+        </AnimatePresence>
       )}
-      </>
+    </AnimateSharedLayout>
+      </ListContainer>
   );
 };
 

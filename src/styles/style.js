@@ -173,8 +173,7 @@ export const StyledTaskForm = styled.form`
   margin: 1.5rem 0 1.5rem;
 `;
 
-export const ListItem = styled.li`
-  list-style: none; 
+export const ListItem = styled.div`
   padding: 1rem 0;
 `;
 
@@ -208,7 +207,13 @@ export const ListItemContainer = styled.div`
   }
 `;
 
-export const ListItemContainerWrap = styled.div`
+export const ListContainer = styled(motion.ul)`
+  display: flex;
+  flex-direction: column;
+`
+
+export const ListItemContainerWrap = styled(motion.li)`
+  list-style: none;
   position: relative;
   border-bottom: 1px solid ${borderColor};
   &:focus {

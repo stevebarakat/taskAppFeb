@@ -161,13 +161,13 @@ function TaskItem({ i, task, taskList, updateDateCompleted, handleSetTaskList, u
                   initial="hidden"
                   animate="visible"
                   exit="hidden"
-                  style={{right: 0, top: 0}}
+                  style={{ right: 0, top: 0 }}
                 >
                   {task.distanceToNow && "Due in " + task.distanceToNow + " from now"}
                 </Badge>
               }
             </AnimatePresence>
-            {task.isOverdue && <Badge overdue style={{right: 0, top: 0}} className="blink">Overdue!</Badge>}
+            {task.isOverdue && <Badge overdue style={{ right: 0, top: 0 }} className="blink">Overdue!</Badge>}
             <TaskText
               contentEditable
               suppressContentEditableWarning
@@ -192,9 +192,12 @@ function TaskItem({ i, task, taskList, updateDateCompleted, handleSetTaskList, u
               onClick={handleOpen}
             />
           </EndCap>
-          <>
+          <AnimatePresence>
             {task.isOpen ?
               <ControlPanel
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
                 isDraggingX={isDraggingX}
                 task={task}
                 updateDueDate={updateDueDate}
@@ -203,7 +206,7 @@ function TaskItem({ i, task, taskList, updateDateCompleted, handleSetTaskList, u
               :
               <div />
             }
-          </>
+          </AnimatePresence>
         </ListItemContainer>
       </motion.div>
       <DeleteButton
