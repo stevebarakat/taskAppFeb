@@ -64,9 +64,7 @@ const ControlPanel = ({ isDraggingX, updateDueDate, task, handleSetIsFocused }) 
         <MetaItem>
           Created: {format(task.dateCreated, "MM/dd/yyyy")} at {format(task.dateCreated, "hh:mm a")}
         </MetaItem>
-        <MetaItem>
-          {task.dateCompleted ? "Completed: " + format(task.dateCompleted, "MM/dd/yyyy") + " at " + format(task.dateCompleted, "hh:mm a") : null}
-        </MetaItem>
+          {task.dateCompleted ? <MetaItem>"Completed: " + format(task.dateCompleted, "MM/dd/yyyy") + " at " + format(task.dateCompleted, "hh:mm a")</MetaItem> : null}
       </MetaData>
     </ExtraStuff>
   );

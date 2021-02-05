@@ -18,7 +18,7 @@ function TaskItem({ i, task, taskList, updateDateCompleted, handleSetTaskList, u
   const [isFocused, setIsFocused] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [isDraggingX, setIsDraggingX] = useState(false);
-  const [isShowing, setIsShowing] = useState(false);
+  const [isHoveringListItem, setIsHoveringListItem] = useState(false);
   const taskCompleted = watch("completed");
   const user = useUser();
   const db = useFirestore();
@@ -136,8 +136,8 @@ function TaskItem({ i, task, taskList, updateDateCompleted, handleSetTaskList, u
       >
         <ListItemContainer
           onKeyDown={e => handleTaskItemKeyPress(e)}
-          onMouseEnter={() => (task.dueDate && !task.isOverdue) && setIsShowing(true)}
-          onMouseLeave={() => (task.dueDate && !task.isOverdue) && setIsShowing(false)}
+          onMouseEnter={() => setIsHoveringListItem(true)}
+          onMouseLeave={() => setIsHoveringListItem(false)}
         >
           <EndCap>
             <label style={{ width: 25, height: 25, alignSelf: "center" }}>
@@ -153,9 +153,8 @@ function TaskItem({ i, task, taskList, updateDateCompleted, handleSetTaskList, u
           </EndCap>
           <ListItem>
             <AnimatePresence>
-              {(isShowing && !task.isOverdue) &&
+              {(isHoveringListItem && !task.isOverdue) &&
                 <Badge
-                  dueSoon
                   variants={variants}
                   initial="hidden"
                   animate="visible"
@@ -166,7 +165,22 @@ function TaskItem({ i, task, taskList, updateDateCompleted, handleSetTaskList, u
                 </Badge>
               }
             </AnimatePresence>
-            {task.isOverdue && <Badge overdue style={{ right: 0, top: 0 }} className="blink">Overdue!</Badge>}
+            <AnimatePresence>
+              {(isHoveringListItem && !task.dueDate && !task.isOpen) &&
+                <Badge
+                  variants={variants}
+                  initial="hidden"
+                  animate="visible"
+                  exit="hidden"
+                  style={{ right: 0, top: 0 }}
+                >
+                  Set Due Date
+                </Badge>
+              }
+            </AnimatePresence>
+            <AnimatePresence>
+              {task.isOverdue && <Badge overdue style={{ right: 0, top: 0 }} className="blink">Overdue!</Badge>}
+            </AnimatePresence>
             <TaskText
               contentEditable
               suppressContentEditableWarning

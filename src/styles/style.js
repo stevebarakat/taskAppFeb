@@ -3,7 +3,8 @@ import { inputBg, colorPrimary, borderColor, textColor, bodyBg, activeColor } fr
 import { motion } from 'framer-motion';
 
 export const Badge = styled(motion.div)`
-  color: ${borderColor};
+  color: ${p => p.overdue ? activeColor : borderColor};
+  font-weight: 700;
   font-size: 0.75rem;
   display: inline-block;
   line-height: 0.75rem;
@@ -496,12 +497,16 @@ export const OptionWrap = styled.div`
 `;
 
 export const MetaData = styled.ul`
-  /* margin: 0 auto;
+  margin: 0 auto;
   display: block;
-  width: fit-content; */
+  width: fit-content;
+  text-align: center;
 `
 
 export const MetaItem = styled.li`
   list-style: none;
-  padding: 0.25rem 0;
+  padding-bottom: 0.5rem;
+  &:last-of-type{
+    padding-bottom: 0;
+  }
 `
