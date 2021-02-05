@@ -4,7 +4,7 @@ import { useFirestore, useUser } from 'reactfire';
 import { motion, AnimatePresence, AnimateSharedLayout } from 'framer-motion';
 import { findIndex } from 'lodash';
 import { useMeasurePosition } from "../../hooks/useMeasurePosition";
-import { Badge, ListItem, ListItemContainer, EndCap, TaskText, DeleteButton, CheckBox, BtnLink } from '../../styles/style';
+import { Badge, BadgeButton, ListItem, ListItemContainer, EndCap, TaskText, DeleteButton, CheckBox, BtnLink } from '../../styles/style';
 import { MdExpandMore } from 'react-icons/md';
 import ControlPanel from './ControlPanel';
 import { useForm } from 'react-hook-form';
@@ -167,7 +167,8 @@ function TaskItem({ i, task, taskList, setDateCompleted, handleSetTaskList, setD
             </AnimatePresence>
             <AnimatePresence>
               {(isHoveringListItem && !task.dueDate && !task.isOpen) &&
-                <Badge
+                <BadgeButton
+                  onClick={handleOpen}
                   variants={variants}
                   initial="hidden"
                   animate="visible"
@@ -175,7 +176,7 @@ function TaskItem({ i, task, taskList, setDateCompleted, handleSetTaskList, setD
                   style={{ right: 0, top: 0 }}
                 >
                   Set Due Date
-                </Badge>
+                </BadgeButton>
               }
             </AnimatePresence>
             <AnimatePresence>

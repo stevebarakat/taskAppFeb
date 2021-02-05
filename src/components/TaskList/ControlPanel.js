@@ -59,12 +59,19 @@ const ControlPanel = ({ isDraggingX, setDueDate, task, handleSetIsFocused }) => 
             openToDate={parsedDate}
             placeholderText="Set Due Date"
             isClearable
+            popperModifiers={{
+              preventOverflow: {
+                enabled: true,
+                escapeWithReference: false,
+                boundariesElement: "viewport"
+              }
+            }}
           />
         </MetaItem>
         <MetaItem>
           Created: {format(task.dateCreated, "MM/dd/yyyy")} at {format(task.dateCreated, "hh:mm a")}
         </MetaItem>
-          {task.dateCompleted ? <MetaItem>Completed: {format(task.dateCompleted, "MM/dd/yyyy")} at {format(task.dateCompleted, "hh:mm a")}</MetaItem> : null}
+        {task.dateCompleted ? <MetaItem>Completed: {format(task.dateCompleted, "MM/dd/yyyy")} at {format(task.dateCompleted, "hh:mm a")}</MetaItem> : null}
       </MetaData>
     </ExtraStuff>
   );

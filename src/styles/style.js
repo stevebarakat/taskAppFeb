@@ -14,6 +14,20 @@ export const Badge = styled(motion.div)`
   border-radius: 3px;
 `;
 
+export const BadgeButton = styled(motion.button)`
+  background: none;
+  border: none;
+  color: ${p => p.overdue ? activeColor : borderColor};
+  font-weight: 700;
+  font-size: 0.75rem;
+  display: inline-block;
+  line-height: 0.75rem;
+  position: absolute;
+  text-align: center;
+  padding: 0.15rem;
+  border-radius: 3px;
+`
+
 export const Container = styled.div`
   max-width: 100%;
   width: 370px;
