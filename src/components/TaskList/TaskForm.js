@@ -25,6 +25,7 @@ const TaskForm = ({ handleSetSearchTerm, searchTerm, taskList }) => {
 
   const handleToggleSearch = () => {
     setIsSearch(isSearch => !isSearch);
+    handleSetSearchTerm("");
   };
 
   const addTask = (e) => {

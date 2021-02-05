@@ -11,13 +11,11 @@ const PasswordReset = () => {
 
   async function handleResetPassword() {
     try {
-      var actionCodeSettings = {
-        // After password reset, the user will be give the ability to go back
-        // to this page.
-        url: 'http://localhost:3000/login',
-        handleCodeInApp: false
+      const redirect = {
+        // After password reset, redirect
+        url: 'http://localhost:3000/login'
       };
-      await auth.sendPasswordResetEmail(resetPasswordEmail, actionCodeSettings);
+      await auth.sendPasswordResetEmail(resetPasswordEmail, redirect);
       setIsPasswordReset(true);
     } catch (err) {
       console.error("Error sending email", err);
