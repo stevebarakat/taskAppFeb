@@ -14,8 +14,8 @@ const TaskList = ({
   updateTask,
   updateTaskList,
   handleSetTaskList,
-  updateDueDate,
-  updateDateCompleted,
+  setDueDate,
+  setDateCompleted,
 }) => {
   const FILTER_MAP = {
     all: () => true,
@@ -98,8 +98,8 @@ const TaskList = ({
                   deleteTask={deleteTask}
                   taskList={taskList}
                   handleSetTaskList={handleSetTaskList}
-                  updateDueDate={updateDueDate}
-                  updateDateCompleted={updateDateCompleted}
+                  setDueDate={setDueDate}
+                  setDateCompleted={setDateCompleted}
                 />
               </ListItemContainerWrap>
             ))}

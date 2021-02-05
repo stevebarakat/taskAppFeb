@@ -17,18 +17,18 @@ let timePickerSupport;
   timePickerSupport = input.value !== notADateValue;
 })();
 
-const ControlPanel = ({ isDraggingX, updateDueDate, task, handleSetIsFocused }) => {
+const ControlPanel = ({ isDraggingX, setDueDate, task, handleSetIsFocused }) => {
 
   function handleDateChange(date) {
     if (!date) {
-      updateDueDate(null, null, null, null, task.id);
+      setDueDate(null, null, null, null, task.id);
     } else {
       const formattedDate = format(date, DATE_FORMAT);
       const distanceToNow = date && formatDistanceToNow(date);
       const diffInHours = differenceInHours(date, Date.now());
       const dueSoon = diffInHours <= 48 && diffInHours >= 0;
       const overdue = diffInHours < 0;
-      updateDueDate(formattedDate, dueSoon, overdue, distanceToNow, task.id);
+      setDueDate(formattedDate, dueSoon, overdue, distanceToNow, task.id);
     }
   }
 
@@ -64,7 +64,7 @@ const ControlPanel = ({ isDraggingX, updateDueDate, task, handleSetIsFocused }) 
         <MetaItem>
           Created: {format(task.dateCreated, "MM/dd/yyyy")} at {format(task.dateCreated, "hh:mm a")}
         </MetaItem>
-          {task.dateCompleted ? <MetaItem>"Completed: " + format(task.dateCompleted, "MM/dd/yyyy") + " at " + format(task.dateCompleted, "hh:mm a")</MetaItem> : null}
+          {task.dateCompleted ? <MetaItem>Completed: {format(task.dateCompleted, "MM/dd/yyyy")} at {format(task.dateCompleted, "hh:mm a")}</MetaItem> : null}
       </MetaData>
     </ExtraStuff>
   );
