@@ -6,12 +6,12 @@ import Spinner from './components/Spinner';
 import App from './App';
 
 const firebaseConfig = {
-  apiKey: "AIzaSyByWxRTrpv7MFrZ0KHVfkHDu3z2S3Cg3Mc",
-  authDomain: "steve-task-app.firebaseapp.com",
-  projectId: "steve-task-app",
-  storageBucket: "steve-task-app.appspot.com",
-  messagingSenderId: "878171741361",
-  appId: "1:878171741361:web:4b7d14284b28cd9bcf9690"
+  apiKey: "AIzaSyCkhByKcJraN1PvXbstgqPV6iDPb3pYMv8",
+  authDomain: "sb-task-app.firebaseapp.com",
+  projectId: "sb-task-app",
+  storageBucket: "sb-task-app.appspot.com",
+  messagingSenderId: "816127602615",
+  appId: "1:816127602615:web:4b859124f20732d32b0232"
 };
 
 // const axeConfig = {

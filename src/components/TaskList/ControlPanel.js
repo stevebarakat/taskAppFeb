@@ -1,8 +1,7 @@
 import React from 'react';
-// import { AnimateSharedLayout } from 'framer-motion';
 import DatePicker from 'react-datepicker';
 import { format, differenceInHours, parse, formatDistanceToNow } from 'date-fns';
-import { ExtraStuff } from '../../styles/style';
+import { MetaData, MetaItem, ExtraStuff } from '../../styles/style';
 import "react-datepicker/dist/react-datepicker.css";
 
 const DATE_FORMAT = "M/d/yyyy, h:mm a";
@@ -32,40 +31,44 @@ const ControlPanel = ({ isDraggingX, updateDueDate, task, handleSetIsFocused }) 
       updateDueDate(formattedDate, dueSoon, overdue, distanceToNow, task.id);
     }
   }
-  
+
   const parsedDate = task.dueDate && parse(task.dueDate, 'M/d/yyyy, h:mm a', new Date());
 
   return (
-    // <AnimateSharedLayout>
     <ExtraStuff
       layout={!isDraggingX ? "position" : false}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
     >
-      <DatePicker
-        onChange={date => handleDateChange(date)}
-        timeInputLabel="Time:"
-        dateFormat="M/d/yyyy, h:mm a"
-        showTimeInput={timePickerSupport ? true : false}
-        showTimeSelect={!timePickerSupport ? true : false}
-        onCalendarOpen={() => handleSetIsFocused(true)}
-        onCalendarClose={() => handleSetIsFocused(false)}
-        timeIntervals={15}
-        shouldCloseOnSelect={false}
-        closeOnScroll={true}
-        selected={parsedDate}
-        openToDate={parsedDate}
-        placeholderText="Set Due Date"
-        isClearable
-      /> <br />
-      Created: {format(task.dateCreated, "MM/dd/yyyy")} at {format(task.dateCreated, "hh:mm a")} <br />
-      {task.dateCompleted ? "Completed: " + format(task.dateCompleted, "MM/dd/yyyy") + " at " + format(task.dateCompleted, "hh:mm a") : null}
-      {console.log(task.isDueSoon)}
-      due soon: {task.isDueSoon ? "true" : "false"}<br />
-      overdue: {task.isOverdue ? "true" : "false"}
+      <MetaData>
+        <MetaItem>
+          {task.dueDate && "Due: "}
+          <DatePicker
+            onChange={date => handleDateChange(date)}
+            timeInputLabel="Time:"
+            dateFormat="M/d/yyyy, h:mm a"
+            showTimeInput={timePickerSupport ? true : false}
+            showTimeSelect={!timePickerSupport ? true : false}
+            onCalendarOpen={() => handleSetIsFocused(true)}
+            onCalendarClose={() => handleSetIsFocused(false)}
+            timeIntervals={15}
+            shouldCloseOnSelect={false}
+            closeOnScroll={true}
+            selected={parsedDate}
+            openToDate={parsedDate}
+            placeholderText="Set Due Date"
+            isClearable
+          />
+        </MetaItem>
+        <MetaItem>
+          Created: {format(task.dateCreated, "MM/dd/yyyy")} at {format(task.dateCreated, "hh:mm a")}
+        </MetaItem>
+        <MetaItem>
+          {task.dateCompleted ? "Completed: " + format(task.dateCompleted, "MM/dd/yyyy") + " at " + format(task.dateCompleted, "hh:mm a") : null}
+        </MetaItem>
+      </MetaData>
     </ExtraStuff>
-    // </AnimateSharedLayout>
   );
 };
 

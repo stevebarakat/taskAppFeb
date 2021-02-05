@@ -101,7 +101,7 @@ function TaskItem({ i, task, taskList, updateDateCompleted, handleSetTaskList, u
   useEffect(() => {
     handleSetTaskList(newList);
     docRef.update({ tasks: taskList });
-  }, [handleSetTaskList, newList]);
+  }, [handleSetTaskList, newList, docRef, taskList]);
 
   return (
     <>
@@ -134,7 +134,6 @@ function TaskItem({ i, task, taskList, updateDateCompleted, handleSetTaskList, u
         animate={{ x: task.isSwiped ? DELETE_BTN_WIDTH * -1 : 0 }}
         style={{ zIndex: isFocused || isDragging ? 5 : 1, position: "relative", background: "#212936" }}
       >
-        {console.log(isShowing)}
         <ListItemContainer
           onKeyDown={e => handleTaskItemKeyPress(e)}
           onMouseEnter={() => (task.dueDate && !task.isOverdue) && setIsShowing(true)}

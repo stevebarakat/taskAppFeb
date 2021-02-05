@@ -2,27 +2,10 @@ import styled from 'styled-components';
 import { inputBg, colorPrimary, borderColor, textColor, bodyBg, activeColor } from './colors';
 import { motion } from 'framer-motion';
 
-const handleStyleType = style => {
-  switch (style) {
-    case "textColor":
-      return `color: ${textColor}; background-color: ${inputBg}; border: 1px solid ${textColor};`;
-    case "activeColor":
-      return `color: ${textColor}; background-color: ${inputBg}; border: 1px solid ${textColor};`;
-    case "borderColor":
-      return `color: ${textColor}; background-color: ${inputBg}; border: 1px solid ${textColor};`;
-    case "inputBg":
-      return `color: ${textColor}; background-color: ${inputBg}; border: 1px solid ${textColor};`;
-    default:
-      return `color: "inherit";`;
-  }
-};
-
 export const Badge = styled(motion.div)`
-  ${({ style }) => handleStyleType(style)};
-  /* background: ${p => p.overdue ? activeColor : textColor}; */
+  color: ${borderColor};
   font-size: 0.75rem;
   display: inline-block;
-  /* text-transform: uppercase; */
   line-height: 0.75rem;
   position: absolute;
   text-align: center;
@@ -184,16 +167,14 @@ export const ListItemContainer = styled.div`
   grid-template-columns: 35px 1fr 50px;
   justify-content: space-between;
   transition: all .15s;
-  &:hover {
     input[type="checkbox"] {
       transition: all .15s;
-      /* border: 2px solid ${textColor}; */
+      border: 2px solid ${textColor};
       &:hover{
-        /* border-color: ${textColor}; */
+        border-color: ${textColor};
       }&::before{
         /* background: ${textColor}; */
       }
-    }
   }
   &:focus {
     button,
@@ -235,9 +216,6 @@ export const TaskText = styled.div`
     padding: 0 0.1rem;
     cursor: text;
     color: ${p => p.overdue ? 'red' : 'inherit'};
-    &:focus {
-    /* border-bottom: 1px solid ${textColor}; */
-    }
 `;
 
 export const Center = styled.div`
@@ -246,7 +224,9 @@ export const Center = styled.div`
 `;
 
 export const TextLabel = styled.label`
-  color: ${textColor};
+  color: ${borderColor};
+  font-size: 1rem;
+  /* font-weight: 700; */
   transition: all 0.2s;
   touch-action: manipulation; 
 `;
@@ -303,7 +283,6 @@ export const TextInput = styled.input`
 export const Field = styled.div`
   display: flex;
   position: relative;
-  /* padding: 0.5rem 0; */
   flex-grow: 1;
 `;
 
@@ -405,10 +384,8 @@ export const CheckBox = styled.input`
     bottom: 50%;
     left: 50%;
     transition: all 0.1s;
-    /* background: ${activeColor}; */
   }
   &:active {
-    /* background: ${textColor}; */
     background: ${activeColor};
   }
   &:focus {
@@ -444,9 +421,6 @@ export const RadioButton = styled.input`
   cursor: pointer;
   border: 2px solid ${borderColor};
   border-radius: 90%;
-    /* &:hover{
-      background: ${activeColor};
-    } */
     &::before {
     content: " ";
     position: absolute;
@@ -520,3 +494,14 @@ export const FilterForm = styled.form`
 export const OptionWrap = styled.div`
   display: inline-block;
 `;
+
+export const MetaData = styled.ul`
+  /* margin: 0 auto;
+  display: block;
+  width: fit-content; */
+`
+
+export const MetaItem = styled.li`
+  list-style: none;
+  padding: 0.25rem 0;
+`
