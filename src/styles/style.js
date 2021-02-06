@@ -359,10 +359,11 @@ export const DeleteButton = styled.div`
   transform: translateY(-50%);
   background-color: ${activeColor};
   cursor: pointer;
+  font-weight: 700;
 `;
 
 export const ExtraStuff = styled.div`
-  padding-bottom: 1rem;
+  /* padding-bottom: 1rem; */
   grid-area: 2 / 1 / auto / span 3;
 `;
 
@@ -511,16 +512,16 @@ export const OptionWrap = styled.div`
 `;
 
 export const MetaData = styled.ul`
-  margin: 0 auto;
-  display: block;
-  width: fit-content;
-  text-align: center;
+  margin: 0 !important;
+  padding: 0 !important;
 `
 
 export const MetaItem = styled.li`
   list-style: none;
-  padding-bottom: 0.5rem;
+  margin: 0 !important;
+  padding: 0 !important;
+  /* padding-bottom: 0.5rem; */
   &:last-of-type{
-    padding-bottom: 0;
+    padding-bottom: 0 !important;
   }
 `

@@ -180,7 +180,10 @@ function TaskItem({ i, task, taskList, setDateCompleted, handleSetTaskList, setD
               }
             </AnimatePresence>
             <AnimatePresence>
-              {task.isOverdue && <Badge overdue style={{ right: 0, top: 0 }} className="blink">Overdue!</Badge>}
+              {task.isOverdue && <Badge overdue variants={variants}
+                initial="hidden"
+                animate="visible"
+                exit="hidden" style={{ right: 0, top: 0 }} className="blink">Overdue!</Badge>}
             </AnimatePresence>
             <TaskText
               contentEditable
@@ -207,18 +210,17 @@ function TaskItem({ i, task, taskList, setDateCompleted, handleSetTaskList, setD
             />
           </EndCap>
           <AnimatePresence>
-            {task.isOpen ?
+            {task.isOpen &&
               <ControlPanel
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
+                variants={variants}
+                initial="hidden"
+                animate="visible"
+                exit="hidden"
                 isDraggingX={isDraggingX}
                 task={task}
                 setDueDate={setDueDate}
                 handleSetIsFocused={handleSetIsFocused}
               />
-              :
-              <div />
             }
           </AnimatePresence>
         </ListItemContainer>

@@ -3,11 +3,11 @@
 :root {
   --bodyBg: #212936;
   --inputBg2: hsla(217, 23%, 25%, 0.5) !important;
-  --inputBg: hsla(0, 0%, 50%, 0.1);
+  --inputBg: hsla(217, 17%, 20%, 1);
   --colorPrimary: #2b76d2;
   --colorSecondary: #56657f;
   --textColor: hsl(0, 0%, 93%);
-  --borderColor: hsla(0, 0%, 93%, 0.5);
+  --borderColor: hsla(214, 4%, 57%, 1);
   /* --borderColor: #707070; */
   /* --activeColor: hsla(0, 100%, 50%, 0.5); */
   --activeColor: hsla(357, 76%, 32%, 1);
@@ -193,10 +193,7 @@ select:-webkit-autofill:focus {
   color: var(--borderColor) !important;
 }
 
-.react-datepicker__input-time-container
-  .react-datepicker-time__input-container
-  .react-datepicker-time__input
-  input {
+.react-datepicker-time__input-container .react-datepicker-time__input input {
   width: auto !important;
 }
 .react-datepicker__close-icon {
@@ -223,6 +220,14 @@ input[placeholder="mm/dd/yyyy hh:mm a"] {
   margin-left: 0.5rem !important;
 }
 
+.react-datepicker__input-time-container {
+  margin: 0 auto !important;
+  padding: 0.5rem;
+  border-top: 1px solid var(--borderColor);
+  display: block !important;
+  text-align: center !important;
+}
+
 .react-datepicker__time-container
   .react-datepicker__time
   .react-datepicker__time-box
@@ -233,8 +238,8 @@ input[placeholder="mm/dd/yyyy hh:mm a"] {
   border: none !important;
 }
 .react-datepicker__month-container {
-  border-bottom: 1px solid var(--borderColor);
-  margin-bottom: 0.5rem;
+  /* border-bottom: 1px solid var(--borderColor); */
+  /* margin-bottom: 0.5rem; */
 }
 
 .react-datepicker__triangle::before {
@@ -260,14 +265,18 @@ input[placeholder="mm/dd/yyyy hh:mm a"] {
   border-top-color: var(--borderColor) !important;
 }
 
-.react-datepicker__input-time-container
-  .react-datepicker-time__input-container
+.react-datepicker-time__input-container
   .react-datepicker-time__input
   input[type="time"] {
   background: var(--inputBg);
   border: 1px solid var(--bodyBg) !important;
   border: 1px solid #56657f !important;
   color: var(--textColor);
+  position: relative;
+}
+
+::-webkit-calendar-picker-indicator {
+  filter: invert(1);
 }
 
 /* NAVIGATION ICONS */
