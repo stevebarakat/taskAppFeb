@@ -210,7 +210,7 @@ function TaskItem({ i, task, taskList, setDateCompleted, handleSetTaskList, setD
             />
           </EndCap>
           <AnimatePresence>
-            {task.isOpen &&
+            {task.isOpen ?
               <ControlPanel
                 variants={variants}
                 initial="hidden"
@@ -220,7 +220,7 @@ function TaskItem({ i, task, taskList, setDateCompleted, handleSetTaskList, setD
                 task={task}
                 setDueDate={setDueDate}
                 handleSetIsFocused={handleSetIsFocused}
-              />
+              /> : <div/>
             }
           </AnimatePresence>
         </ListItemContainer>
