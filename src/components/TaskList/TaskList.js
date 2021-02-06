@@ -70,7 +70,6 @@ const TaskList = ({
 
   return (
     <ListContainer>
-    <AnimateSharedLayout type="crossfade">
       {taskList.length === 0 ? (
         <p>You don't have any tasks.</p>
       ) : (
@@ -80,14 +79,12 @@ const TaskList = ({
             .filter(task => task.title
               .toLowerCase()
               .includes(searchTerm)).map((task, i) => (
-              <ListItemContainerWrap 
-                  dragX
-                  layout 
-                  position
+                <ListItemContainerWrap 
                   key={task.id} 
                   initial={{ opacity: 0, y: 0 }}
                   animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: "-100%" }}>
+                  exit={{ opacity: 0, y: "-100%" }}
+                >
                 <TaskItem
                   i={i}
                   task={task}
@@ -105,7 +102,6 @@ const TaskList = ({
             ))}
         </AnimatePresence>
       )}
-    </AnimateSharedLayout>
       </ListContainer>
   );
 };

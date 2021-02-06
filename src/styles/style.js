@@ -204,8 +204,8 @@ export const ListItemContainer = styled.div`
 `;
 
 export const ListContainer = styled(motion.ul)`
-  display: flex;
-  flex-direction: column;
+  /* display: flex;
+  flex-direction: column; */
 `
 
 export const ListItemContainerWrap = styled(motion.li)`

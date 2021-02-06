@@ -132,7 +132,7 @@ function TaskItem({ i, task, taskList, setDateCompleted, handleSetTaskList, setD
         whileTap={{ cursor: "grabbing" }}
         whileHover={{ cursor: "grab" }}
         animate={{ x: task.isSwiped ? DELETE_BTN_WIDTH * -1 : 0 }}
-        style={{ zIndex: isFocused || isDragging ? 5 : 1, position: "relative", background: "#212936" }}
+        style={{ zIndex: isDragging || isFocused ? 5999 : 1, position: "relative", background: "#212936" }}
       >
         <ListItemContainer
           onKeyDown={e => handleTaskItemKeyPress(e)}
@@ -220,7 +220,7 @@ function TaskItem({ i, task, taskList, setDateCompleted, handleSetTaskList, setD
                 task={task}
                 setDueDate={setDueDate}
                 handleSetIsFocused={handleSetIsFocused}
-              /> : <div/>
+              /> : <></>
             }
           </AnimatePresence>
         </ListItemContainer>
