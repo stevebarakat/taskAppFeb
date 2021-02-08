@@ -1,5 +1,5 @@
 import React, { useState, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import useOnClickOutside from '../hooks/useOnClickOutside';
 import { Avatar, MenuModal, IconLink, Button, StyledHeader, Logo, Title } from '../styles/style';
 import { FaUserCircle } from 'react-icons/fa';

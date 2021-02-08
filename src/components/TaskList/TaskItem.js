@@ -1,10 +1,10 @@
 import React from 'react';
 import { useState, useEffect } from "react";
 import { useFirestore, useUser } from 'reactfire';
-import { motion, AnimatePresence, AnimateSharedLayout } from 'framer-motion';
+import { motion, AnimatePresence } from 'framer-motion';
 import { findIndex } from 'lodash';
 import { useMeasurePosition } from "../../hooks/useMeasurePosition";
-import { Badge, BadgeButton, ListItem, ListItemContainer, EndCap, TaskText, DeleteButton, CheckBox, BtnLink } from '../../styles/style';
+import { Badge, BadgeButton, ListItem, ListItemContainer, EndCap, TaskText, DeleteButton, CheckBox } from '../../styles/style';
 import { MdExpandMore } from 'react-icons/md';
 import ControlPanel from './ControlPanel';
 import { useForm } from 'react-hook-form';
@@ -75,9 +75,9 @@ function TaskItem({ i, task, taskList, setDateCompleted, handleSetTaskList, setD
     const taskIndex = findIndex(taskList, { id });
     tempTasks.map((_, i) => {
       if (taskIndex === i) {
-        tempTasks[i].isOpen = !tempTasks[i].isOpen;
+        return tempTasks[i].isOpen = !tempTasks[i].isOpen;
       } else {
-        tempTasks[i].isOpen = false;
+        return tempTasks[i].isOpen = false;
       }
     });
     handleSetTaskList(tempTasks);

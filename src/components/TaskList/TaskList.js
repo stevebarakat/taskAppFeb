@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import TaskItem from './TaskItem';
-import { AnimatePresence, AnimateSharedLayout } from 'framer-motion';
+import { AnimatePresence } from 'framer-motion';
 import { ListContainer, ListItemContainerWrap } from '../../styles/style';
 import { usePositionReorder } from '../../hooks/usePositionReorder';
 
@@ -81,9 +81,9 @@ const TaskList = ({
               .includes(searchTerm)).map((task, i) => (
                 <ListItemContainerWrap 
                   key={task.id} 
-                  initial={{ opacity: 0, y: 0 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: "-100%" }}
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
                 >
                 <TaskItem
                   i={i}
