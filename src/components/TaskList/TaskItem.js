@@ -12,7 +12,7 @@ import { v4 as uuidv4 } from 'uuid';
 
 const DELETE_BTN_WIDTH = 70;
 
-function TaskItem({ i, task, taskList, setDateCompleted, handleSetTaskList, setDueDate, updatePosition, updateOrder, deleteTask, updateTask, handleDragEnd }) {
+function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosition, updateOrder, deleteTask, updateTask, handleDragEnd }) {
   const { register, watch } = useForm();
   const ref = useMeasurePosition((pos) => updatePosition(i, pos));
   const [isFocused, setIsFocused] = useState(false);
@@ -91,6 +91,10 @@ function TaskItem({ i, task, taskList, setDateCompleted, handleSetTaskList, setD
           ...item,
           isCompleted: taskCompleted,
           dateCompleted: taskCompleted ? Date.now() : null,
+          dueDate: taskCompleted ? null : item.dueDate,
+          distanceToNow: taskCompleted ? null : item.distanceToNow,
+          isDueSoon: taskCompleted ? null : item.isDueSoon,
+          isOverdue: taskCompleted ? null : item.isOverdue,
         };
         return updatedItem;
       }
