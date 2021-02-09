@@ -73,7 +73,7 @@ const TaskList = ({
       {taskList.length === 0 ? (
         <p>You don't have any tasks.</p>
       ) : (
-        <AnimatePresence initial={false}>
+        <AnimatePresence>
             {taskList
             ?.filter(FILTER_MAP[filterType])
             .filter(task => task.title
