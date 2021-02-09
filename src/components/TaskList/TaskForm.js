@@ -41,6 +41,11 @@ const TaskForm = ({ handleSetSearchTerm, searchTerm, taskList }) => {
           isCompleted: false,
           isOpen: false,
           dateCreated: Date.now(),
+          isOverdue: false,
+          isDueSoon: false,
+          distanceToNow: null,
+          dueDate: null,
+          dateCompleted: null
         }]
       }, { merge: true });
     }

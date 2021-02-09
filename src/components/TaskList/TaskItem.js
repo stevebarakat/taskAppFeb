@@ -86,18 +86,15 @@ function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosi
 
   function handleIsCompleted(id) {
     newList = taskList.map((item) => {
-      if (item.id === id) {
-        const updatedItem = {
-          ...item,
-          isCompleted: taskCompleted,
-          dateCompleted: taskCompleted ? Date.now() : null,
-          dueDate: taskCompleted ? null : item.dueDate,
-          distanceToNow: taskCompleted ? null : item.distanceToNow,
-          isDueSoon: taskCompleted ? null : item.isDueSoon,
-          isOverdue: taskCompleted ? null : item.isOverdue,
-        };
-        return updatedItem;
-      }
+      if (item.id === id) return {
+        ...item,
+        isCompleted: taskCompleted,
+        dateCompleted: taskCompleted ? Date.now() : null,
+        dueDate: taskCompleted ? null : item.dueDate,
+        distanceToNow: taskCompleted ? null : item.distanceToNow,
+        isDueSoon: taskCompleted ? null : item.isDueSoon,
+        isOverdue: taskCompleted ? null : item.isOverdue,
+      };
       return item;
     });
   }
