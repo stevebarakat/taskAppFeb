@@ -19,7 +19,7 @@ function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosi
   const [isDragging, setIsDragging] = useState(false);
   const [isDraggingX, setIsDraggingX] = useState(false);
   const [isHoveringListItem, setIsHoveringListItem] = useState(false);
-  const taskCompleted = watch("completed");
+  const [taskCompleted, setTaskCompleted] = useState(false);
   const user = useUser();
   const db = useFirestore();
   const docRef = db.collection('tasklist').doc(user.uid);
@@ -136,7 +136,7 @@ function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosi
         style={{ zIndex: isDragging || isFocused ? 5999 : 1, position: "relative", background: "#212936" }}
       >
         <ListItemContainer
-          onKeyDown={e => handleTaskItemKeyPress(e)}
+          // onKeyDown={e => handleTaskItemKeyPress(e)}
           onMouseEnter={() => setIsHoveringListItem(true)}
           onMouseLeave={() => setIsHoveringListItem(false)}
         >
@@ -146,9 +146,9 @@ function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosi
                 type="checkbox"
                 placeholder="completed"
                 name="completed"
-                ref={register}
+                onChange={e => setTaskCompleted(e.target.checked)}
                 onClick={handleIsCompleted(task.id)}
-                defaultChecked={task.isCompleted}
+                checked={task.isCompleted}
               />
             </label>
           </EndCap>
@@ -191,11 +191,7 @@ function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosi
               suppressContentEditableWarning
               onKeyDown={e => handleKeyPress(e)}
               onBlur={e => updateTask(e, task.id)}
-              style={{
-                textDecoration: task.isCompleted
-                  ? 'line-through 3px hsla(357, 76%, 32%, 1.0)'
-                  : 'none',
-              }}
+              className={task.isCompleted ? 'completed' : ''}
             >
               {task.title}
             </TaskText>

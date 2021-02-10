@@ -77,6 +77,12 @@ select:-webkit-autofill:focus {
   transition: background-color 5000s ease-in-out 0s;
 }
 
+.completed {
+  text-decoration: line-through 3px hsl(357, 76%, 32%);
+  -webkit-text-decoration-line: line-through;
+  -webkit-text-decoration-color: red;
+}
+
 .react-datepicker {
   background: var(--bodyBg) !important;
   color: var(--textColor) !important;
