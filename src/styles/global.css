@@ -8,8 +8,6 @@
   --colorSecondary: #56657f;
   --textColor: hsl(0, 0%, 93%);
   --borderColor: hsla(214, 4%, 57%, 1);
-  /* --borderColor: #707070; */
-  /* --activeColor: hsla(0, 100%, 50%, 0.5); */
   --activeColor: hsla(357, 76%, 32%, 1);
 }
 
@@ -90,14 +88,43 @@ select:-webkit-autofill:focus {
   border-radius: 0 !important;
 }
 
+.react-datepicker-custom-input,
 .react-datepicker__input-container input[type="text"] {
-  background: var(--inputBg);
-  border: 1px solid var(--bodyBg) !important;
-  border: 1px solid #56657f !important;
+  background: var(--bodyBg);
+  border: none !important;
   color: var(--textColor);
   padding: 0.3rem !important;
-  width: 180px;
-  height: 30px !important;
+  text-align: left;
+  width: 16rem;
+}
+
+.react-datepicker-custom-input2 {
+  background: var(--textColor);
+  /* box-shadow: none !important; */
+  border-radius: 3px;
+  border: 1px solid var(--borderColor);
+}
+
+.react-datepicker__close-icon {
+  padding: 0 !important;
+}
+
+.react-datepicker__close-icon::after {
+  content: "Clear Due Date" !important;
+  /* font-size: 1.5rem !important; */
+  /* line-height: 1.15rem !important; */
+  font-weight: 600;
+  background-color: var(--textColor) !important;
+  border-radius: 3px !important;
+  width: 6.15rem !important;
+  padding: 0 !important;
+  color: var(--bodyBg) !important;
+  border: none;
+  position: relative;
+}
+
+.react-datepicker__close-icon:hover::after {
+  background-color: var(--borderColor) !important;
 }
 
 .react-datepicker__input-container:hover input[type="text"]:hover {
@@ -202,24 +229,6 @@ select:-webkit-autofill:focus {
 
 .react-datepicker-time__input-container .react-datepicker-time__input input {
   width: auto !important;
-}
-.react-datepicker__close-icon {
-  padding: 0 !important;
-}
-.react-datepicker__close-icon::after {
-  font-size: 1.5rem !important;
-  /* line-height: 0.25rem !important; */
-  font-weight: 300;
-  background-color: transparent !important;
-  width: 25px !important;
-  border-radius: 0 !important;
-  color: var(--borderColor) !important;
-  border-left: 1px solid #56657f;
-  position: relative;
-}
-
-.react-datepicker__close-icon:hover::after {
-  color: var(--textColor) !important;
 }
 
 input[placeholder="mm/dd/yyyy hh:mm a"] {

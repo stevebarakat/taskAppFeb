@@ -7,13 +7,11 @@ import { useMeasurePosition } from "../../hooks/useMeasurePosition";
 import { Badge, BadgeButton, ListItem, ListItemContainer, EndCap, TaskText, DeleteButton, CheckBox } from '../../styles/style';
 import { MdExpandMore } from 'react-icons/md';
 import ControlPanel from './ControlPanel';
-import { useForm } from 'react-hook-form';
 import { v4 as uuidv4 } from 'uuid';
 
 const DELETE_BTN_WIDTH = 70;
 
 function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosition, updateOrder, deleteTask, updateTask, handleDragEnd }) {
-  const { register, watch } = useForm();
   const ref = useMeasurePosition((pos) => updatePosition(i, pos));
   const [isFocused, setIsFocused] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
@@ -52,22 +50,22 @@ function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosi
     }
   }
 
-  function handleTaskItemKeyPress(e) {
-    if (e.key === "Enter") {
-      const docRef = db.collection('tasklist').doc(user.uid);
-      docRef.set({
-        tasks: [...taskList, {
-          id: uuidv4(),
-          title: "",
-          height: "56",
-          isSwiped: false,
-          isCompleted: false,
-          isOpen: false,
-        }]
-      }, { merge: true });
-      e.cancelBubble = true;
-    }
-  }
+  // function handleTaskItemKeyPress(e) {
+  //   if (e.key === "Enter") {
+  //     const docRef = db.collection('tasklist').doc(user.uid);
+  //     docRef.set({
+  //       tasks: [...taskList, {
+  //         id: uuidv4(),
+  //         title: "",
+  //         height: "56",
+  //         isSwiped: false,
+  //         isCompleted: false,
+  //         isOpen: false,
+  //       }]
+  //     }, { merge: true });
+  //     e.cancelBubble = true;
+  //   }
+  // }
 
   function handleOpen() {
     const tempTasks = taskList;

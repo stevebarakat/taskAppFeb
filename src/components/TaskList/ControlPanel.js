@@ -34,13 +34,19 @@ const ControlPanel = ({ isDraggingX, setDueDate, task, handleSetIsFocused }) => 
 
   const parsedDate = task.dueDate && parse(task.dueDate, 'M/d/yyyy, h:mm a', new Date());
 
+  const CustomInput = ({ value, onClick }) => (
+    <button className={value ? "react-datepicker-custom-input" : "react-datepicker-custom-input2"} onClick={onClick}>
+      {value ? value : "Set Due Date"}
+    </button>
+  );
+
   return (
     <ExtraStuff
       layout={!isDraggingX ? "position" : false}
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       exit={{ opacity: 0 }}
-      style={{marginLeft: `0.25rem`}}
+      style={{ marginLeft: `0.25rem` }}
     >
       <MetaData>
         <MetaItem>
@@ -60,6 +66,7 @@ const ControlPanel = ({ isDraggingX, setDueDate, task, handleSetIsFocused }) => 
             openToDate={parsedDate}
             placeholderText="Set Due Date"
             isClearable
+            customInput={<CustomInput />}
             popperModifiers={{
               preventOverflow: {
                 enabled: true,
