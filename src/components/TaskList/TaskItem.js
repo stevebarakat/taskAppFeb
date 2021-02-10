@@ -34,16 +34,15 @@ function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosi
 
   function handleKeyPress(e) {
     if (e.key === "Enter") {
-      console.log(document.activeElement);
       document.activeElement.blur();
-      console.log(document.activeElement);
-      // e.cancelBubble = true;
+      taskEl.current.focus();
+      e.cancelBubble = true;
       e.stopPropagation();
+      // e.nativeEvent.stopImmediatePropagation();
     }
   }
 
   function handleTaskItemKeyPress(e) {
-    console.log(taskEl.current)
     if (e.key === "Enter") {
       const docRef = db.collection('tasklist').doc(user.uid);
       docRef.set({
@@ -62,10 +61,11 @@ function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosi
           dateCompleted: null
         }]
       }, { merge: true });
-      // e.cancelBubble = true;
+      e.cancelBubble = true;
     }
   }
 
+  console.log(taskEl.current)
   function handleOpen() {
     const tempTasks = taskList;
     const id = task.id;
@@ -100,7 +100,7 @@ function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosi
     handleSetTaskList(newList);
     docRef.update({ tasks: taskList });
   }, [handleSetTaskList, newList, docRef, taskList]);
-  
+
   return (
     <>
       <motion.div
@@ -132,8 +132,7 @@ function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosi
         style={{ zIndex: isDragging || isFocused ? 5999 : 1, position: "relative", background: "#212936" }}
       >
         <ListItemContainer
-          ref={taskEl}
-          onKeyDown={e => handleKeyPress(e)}
+          onKeyDown={e => handleTaskItemKeyPress(e)}
           onMouseEnter={() => setIsHoveringListItem(true)}
           onMouseLeave={() => setIsHoveringListItem(false)}
         >
@@ -149,9 +148,7 @@ function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosi
               />
             </label>
           </EndCap>
-          <ListItem
-            onKeyDown={e => handleTaskItemKeyPress(e)}
-          >
+          <ListItem>
             <AnimatePresence>
               {(isHoveringListItem && !task.isOverdue) &&
                 <Badge
@@ -188,21 +185,20 @@ function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosi
             <TaskText
               contentEditable
               suppressContentEditableWarning
-              // onKeyDown={e => handleKeyPress(e)}
+              onKeyDown={e => handleKeyPress(e)}
               onBlur={e => updateTask(e, task.id)}
               className={task.isCompleted ? 'completed' : ''}
             >
               {task.title}
             </TaskText>
           </ListItem>
-          <EndCap as="button">
+          <EndCap as="button" ref={taskEl} onClick={handleOpen}>
             <MdExpandMore
               style={{
                 margin: "auto",
                 transform: task.isOpen ? "rotate(0deg)" : "rotate(90deg)",
                 transition: "all 0.25s ease-out"
               }}
-              onClick={handleOpen}
             />
           </EndCap>
           <AnimatePresence>

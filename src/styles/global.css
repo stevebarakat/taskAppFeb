@@ -4,8 +4,6 @@
   --bodyBg: #212936;
   --inputBg2: hsla(217, 23%, 25%, 0.5) !important;
   --inputBg: hsla(217, 17%, 20%, 1);
-  --colorPrimary: #2b76d2;
-  --colorSecondary: #56657f;
   --textColor: hsl(0, 0%, 93%);
   --borderColor: hsla(214, 4%, 57%, 1);
   --activeColor: hsla(357, 76%, 32%, 1);
@@ -20,7 +18,7 @@
     "Helvetica Neue", sans-serif !important;
 }
 *:focus {
-  /* outline: none !important; */
+  outline: none !important;
 }
 
 button {
@@ -96,7 +94,7 @@ select:-webkit-autofill:focus {
 
 .react-datepicker-custom-input,
 .react-datepicker__input-container input[type="text"] {
-  background: var(--bodyBg);
+  background: transparent !important;
   border: none !important;
   color: var(--textColor);
   padding: 0.3rem !important;
@@ -111,8 +109,8 @@ select:-webkit-autofill:focus {
 }
 
 .react-datepicker-custom-input2:focus {
-  outline: none;
-  border: 2px solid red !important;
+  /* outline: none;
+  border: 2px solid red !important; */
 }
 
 .react-datepicker__close-icon {
@@ -263,7 +261,7 @@ input[placeholder="mm/dd/yyyy hh:mm a"] {
   .react-datepicker__time-box
   ul.react-datepicker__time-list
   li.react-datepicker__time-list-item--selected:hover {
-  background-color: #216ba5;
+  background-color: var(--bodyBg) !important;
   color: white !important;
   border: none !important;
 }
@@ -277,13 +275,6 @@ input[placeholder="mm/dd/yyyy hh:mm a"] {
   .react-datepicker__triangle::before {
   border-top: none;
   border-bottom-color: var(--borderColor) !important;
-}
-
-:focus {
-  outline-color: var(--textColor);
-  outline-style: solid;
-  outline-width: 1px;
-  outline-offset: -1px;
 }
 
 .react-datepicker-popper[data-placement^="top"] .react-datepicker__triangle {

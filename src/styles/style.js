@@ -1,5 +1,5 @@
 import styled from 'styled-components/macro';
-import { inputBg, colorPrimary, borderColor, textColor, bodyBg, activeColor } from './colors';
+import { inputBg, borderColor, textColor, bodyBg, activeColor } from './colors';
 import { motion } from 'framer-motion';
 
 export const Badge = styled(motion.div)`
@@ -65,15 +65,6 @@ export const EndCap = styled.div`
   &:hover,
   &:focus{
     cursor: pointer;
-    color: ${textColor};
-  }
-`;
-
-export const DragHandle = styled.div`
-  display: flex;
-  &:hover,
-  &:focus{
-    background: ${colorPrimary};
     color: ${textColor};
   }
 `;
@@ -176,7 +167,7 @@ export const ListItem = styled.div`
 `;
 
 export const ListItemContainer = styled.div`
-  background: #212936;
+  /* background: #212936; */
   position: relative;
   display: grid;
   grid-template-columns: 35px 1fr 50px;
@@ -234,8 +225,8 @@ export const TaskText = styled.div`
     color: ${p => p.overdue ? 'red' : 'inherit'};
     &:focus{
       outline: none;
-      background: ${inputBg};
-      border: 1px solid ${borderColor};
+      /* background: ${inputBg};
+      border: 1px solid ${borderColor}; */
       /* &::before{
         content: "Editing";
         position: absolute;
