@@ -33,10 +33,11 @@ const TaskList = ({
 
   const handleDragEnd = (info, taskId, index) => {
     const dragDistance = info.offset.x;
+    const velocity = info.velocity.x;
     const taskSwiped = taskList.filter((task) => task.id === taskId)[0];
 
     if (
-      dragDistance < 0 &&
+    (dragDistance < 0 || velocity < -500 ) &&
       (dragDistance < -DELETE_BTN_WIDTH * 2 ||
         (taskSwiped.isSwiped && dragDistance < -DELETE_BTN_WIDTH - 10))
     ) {

@@ -136,11 +136,7 @@ function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosi
         whileTap={{ cursor: "grabbing" }}
         whileHover={{ cursor: "grab" }}
         animate={{ x: task.isSwiped ? DELETE_BTN_WIDTH * -1 : 0 }}
-        transition={{
-          type: "spring",
-          x: { type: "inertia", stiffness: 500 },
-          default: { duration: 0.5 },
-        }}
+        transition={{ duration: 0.25 }}
         style={{ zIndex: isDragging || isFocused ? 5999 : 1, position: "relative", background: "#212936" }}
       >
         <ListItemContainer
