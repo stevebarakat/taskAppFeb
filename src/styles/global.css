@@ -20,8 +20,14 @@
     "Helvetica Neue", sans-serif !important;
 }
 *:focus {
-  outline: none !important;
+  /* outline: none !important; */
 }
+
+button {
+  background: transparent;
+  border: none;
+}
+
 body {
   background: var(--bodyBg);
   font-weight: 400;
@@ -100,9 +106,13 @@ select:-webkit-autofill:focus {
 
 .react-datepicker-custom-input2 {
   background: var(--textColor);
-  /* box-shadow: none !important; */
   border-radius: 3px;
-  border: 1px solid var(--borderColor);
+  border: none;
+}
+
+.react-datepicker-custom-input2:focus {
+  outline: none;
+  border: 2px solid red !important;
 }
 
 .react-datepicker__close-icon {
@@ -185,6 +195,11 @@ select:-webkit-autofill:focus {
 .react-datepicker__day--selected:hover {
   color: var(--textColor) !important;
 }
+.react-datepicker__day--selected:focus {
+  /* outline: none;
+  border: 3px solid greenyellow !important;
+  border-radius: 0.5 rem !important; */
+}
 .react-datepicker__day--selected::before {
   font-size: 0.7rem;
   font-weight: 700;
@@ -198,7 +213,6 @@ select:-webkit-autofill:focus {
   width: 100%;
   padding: 0 1px;
 }
-
 .react-datepicker__day--today {
   border: 1px solid var(--textColor) !important;
   position: relative;

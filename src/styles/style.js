@@ -212,8 +212,9 @@ export const ListItemContainerWrap = styled(motion.li)`
   list-style: none;
   position: relative;
   border-bottom: 1px solid ${borderColor};
-  &:focus {
-    border-bottom: 1px solid ${textColor};
+  div:first-child:hover {
+    /* border: 1px solid ${textColor}; */
+    background: ${inputBg};
   } 
 `;
 
@@ -231,6 +232,16 @@ export const TaskText = styled.div`
     padding: 0 0.1rem;
     cursor: text;
     color: ${p => p.overdue ? 'red' : 'inherit'};
+    &:focus{
+      outline: none;
+      background: ${inputBg};
+      border: 1px solid ${borderColor};
+      /* &::before{
+        content: "Editing";
+        position: absolute;
+        top: -10px;
+      } */
+    }
 `;
 
 export const Center = styled.div`
@@ -437,6 +448,9 @@ export const RadioButton = styled.input`
   cursor: pointer;
   border: 2px solid ${borderColor};
   border-radius: 90%;
+    &:focus {
+      border: 3px solid ${textColor};
+    }
     &::before {
     content: " ";
     position: absolute;
