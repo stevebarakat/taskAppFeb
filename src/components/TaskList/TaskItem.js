@@ -11,6 +11,13 @@ import { v4 as uuidv4 } from 'uuid';
 
 const DELETE_BTN_WIDTH = 70;
 
+const transition = {
+  min: 0,
+  max: 100,
+  bounceDamping: 8,
+  bounceStiffness: 10
+};
+
 function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosition, updateOrder, deleteTask, updateTask, handleDragEnd }) {
   const ref = useMeasurePosition((pos) => updatePosition(i, pos));
   const taskEl = useRef(null);
@@ -65,7 +72,6 @@ function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosi
     }
   }
 
-  console.log(taskEl.current)
   function handleOpen() {
     const tempTasks = taskList;
     const id = task.id;
@@ -107,8 +113,9 @@ function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosi
         ref={ref}
         layout="position"
         drag
-        dragElastic={1}
+        dragElastic={0.5}
         dragDirectionLock
+        dragTransition={transition}
         onDirectionLock={axis => axis === "x" ? setIsDraggingX(true) : setIsDraggingX(false)}
         dragConstraints={{
           top: 0,
@@ -129,6 +136,11 @@ function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosi
         whileTap={{ cursor: "grabbing" }}
         whileHover={{ cursor: "grab" }}
         animate={{ x: task.isSwiped ? DELETE_BTN_WIDTH * -1 : 0 }}
+        transition={{
+          type: "spring",
+          x: { type: "inertia", stiffness: 500 },
+          default: { duration: 0.5 },
+        }}
         style={{ zIndex: isDragging || isFocused ? 5999 : 1, position: "relative", background: "#212936" }}
       >
         <ListItemContainer
