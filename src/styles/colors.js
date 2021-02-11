@@ -1,6 +1,5 @@
-export const bodyBg = "#212936";
-export const inputBg = "hsla(0, 0%, 50%, 0.1)";
+export const bodyBg = "hsl(217, 24%, 17%)";
+export const inputBg = "hsl(217, 17%, 20%)";
 export const textColor = "hsl(0, 0%, 93%)";
-export const borderColor = "hsla(214, 4%, 57%, 1.0)";
-export const activeColor = "hsla(357, 76%, 32%, 1.0)";
-export const accentColor = "hsla(216, 59%, 45%, 1.0)";
+export const borderColor = "hsl(214, 4%, 57%)";
+export const activeColor = "hsl(357, 76%, 32%)";

@@ -264,7 +264,7 @@ export const TextInput = styled.input`
   padding: 1rem 0 0 1rem;
   margin: 0;
   width: 100%;
-  z-index: 1;
+  z-index: 0;
   background: ${inputBg};
   color: ${textColor};
   transition: all 0.1s;

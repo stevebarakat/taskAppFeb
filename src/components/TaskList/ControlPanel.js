@@ -64,7 +64,7 @@ const ControlPanel = ({ isDraggingX, setDueDate, task, handleSetIsFocused }) => 
             closeOnScroll={true}
             selected={parsedDate}
             openToDate={parsedDate}
-            placeholderText="Set Due Date"
+            // placeholderText="Set Due Date"
             isClearable
             customInput={<CustomInput />}
             popperModifiers={{

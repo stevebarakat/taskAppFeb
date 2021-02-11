@@ -1,12 +1,11 @@
 /* COLORS */
 
 :root {
-  --bodyBg: #212936;
-  --inputBg2: hsla(217, 23%, 25%, 0.5) !important;
-  --inputBg: hsla(217, 17%, 20%, 1);
+  --bodyBg: hsl(217, 24%, 17%);
+  --inputBg: hsl(217, 17%, 20%);
   --textColor: hsl(0, 0%, 93%);
-  --borderColor: hsla(214, 4%, 57%, 1);
-  --activeColor: hsla(357, 76%, 32%, 1);
+  --borderColor: hsl(214, 4%, 57%);
+  --activeColor: hsl(357, 76%, 32%);
 }
 
 /* ELEMENTS */
@@ -99,7 +98,7 @@ select:-webkit-autofill:focus {
   color: var(--textColor);
   padding: 0.3rem !important;
   text-align: left;
-  width: 16rem;
+  width: 10rem;
 }
 
 .react-datepicker-custom-input2 {
@@ -118,13 +117,12 @@ select:-webkit-autofill:focus {
 }
 
 .react-datepicker__close-icon::after {
-  content: "Clear Due Date" !important;
+  content: "✖︎" !important;
   /* font-size: 1.5rem !important; */
   /* line-height: 1.15rem !important; */
   font-weight: 600;
   background-color: var(--textColor) !important;
   border-radius: 3px !important;
-  width: 6.15rem !important;
   padding: 0 !important;
   color: var(--bodyBg) !important;
   border: none;
