@@ -13,7 +13,7 @@ const DELETE_BTN_WIDTH = 70;
 
 function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosition, updateOrder, deleteTask, updateTask, handleDragEnd }) {
   const ref = useMeasurePosition((pos) => updatePosition(i, pos));
-  const taskEl = useRef(null);
+  const taskRef = useRef(null);
   const [isFocused, setIsFocused] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [isDraggingX, setIsDraggingX] = useState(false);
@@ -35,10 +35,12 @@ function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosi
   function handleKeyPress(e) {
     if (e.key === "Enter") {
       document.activeElement.blur();
-      taskEl.current.focus();
+      taskRef.current.focus();
       e.stopPropagation();
     }
   }
+  const taskEl = document.activeElement?.previousSibling?.previousSibling?.
+    parentElement?.parentElement?.parentElement?.parentElement?.lastChild;
 
   function handleTaskItemKeyPress(e) {
     if (e.key === "Enter") {
@@ -59,8 +61,13 @@ function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosi
           dateCompleted: null
         }]
       }, { merge: true });
+      document.activeElement.focus();
     }
   }
+  const newTaskEl = taskEl?.firstChild?.firstChild?.firstChild?.nextSibling?.firstChild;
+  console.log(newTaskEl);
+  (() => newTaskEl && console.log(taskEl))();
+  (() => newTaskEl?.focus())();
 
   function handleOpen() {
     const tempTasks = taskList;
@@ -189,7 +196,7 @@ function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosi
               {task.title}
             </TaskText>
           </ListItem>
-          <button ref={taskEl} style={{position: "absolute", left: "-100%"}} />
+          <button ref={taskRef} style={{ position: "absolute", left: "-100%" }} />
           <EndCap as="button" onClick={handleOpen}>
             <MdExpandMore
               style={{
