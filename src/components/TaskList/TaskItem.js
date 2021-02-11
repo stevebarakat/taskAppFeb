@@ -64,7 +64,7 @@ function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosi
       document.activeElement.focus();
     }
   }
-  const newTaskEl = taskEl?.firstChild?.firstChild?.firstChild?.nextSibling?.firstChild;
+  const newTaskEl = taskEl?.firstChild?.firstChild?.firstChild?.nextSibling?.lastChild;
   console.log(newTaskEl);
   (() => newTaskEl && console.log(taskEl))();
   (() => newTaskEl?.focus())();
