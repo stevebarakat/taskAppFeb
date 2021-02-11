@@ -11,13 +11,6 @@ import { v4 as uuidv4 } from 'uuid';
 
 const DELETE_BTN_WIDTH = 70;
 
-const transition = {
-  min: 0,
-  max: 100,
-  bounceDamping: 8,
-  bounceStiffness: 10
-};
-
 function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosition, updateOrder, deleteTask, updateTask, handleDragEnd }) {
   const ref = useMeasurePosition((pos) => updatePosition(i, pos));
   const taskEl = useRef(null);
@@ -43,9 +36,7 @@ function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosi
     if (e.key === "Enter") {
       document.activeElement.blur();
       taskEl.current.focus();
-      e.cancelBubble = true;
       e.stopPropagation();
-      // e.nativeEvent.stopImmediatePropagation();
     }
   }
 
@@ -55,7 +46,7 @@ function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosi
       docRef.set({
         tasks: [...taskList, {
           id: uuidv4(),
-          title: "",
+          title: "New Task",
           height: "56",
           isSwiped: false,
           isCompleted: false,
@@ -68,7 +59,6 @@ function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosi
           dateCompleted: null
         }]
       }, { merge: true });
-      e.cancelBubble = true;
     }
   }
 
@@ -115,7 +105,6 @@ function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosi
         drag
         dragElastic={0.5}
         dragDirectionLock
-        dragTransition={transition}
         onDirectionLock={axis => axis === "x" ? setIsDraggingX(true) : setIsDraggingX(false)}
         dragConstraints={{
           top: 0,
@@ -200,7 +189,8 @@ function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosi
               {task.title}
             </TaskText>
           </ListItem>
-          <EndCap as="button" ref={taskEl} onClick={handleOpen}>
+          <button ref={taskEl} style={{position: "absolute", left: "-100%"}} />
+          <EndCap as="button" onClick={handleOpen}>
             <MdExpandMore
               style={{
                 margin: "auto",
