@@ -6,6 +6,15 @@ import { usePositionReorder } from '../../hooks/usePositionReorder';
 
 const DELETE_BTN_WIDTH = 70;
 
+const TASK_DELETE_ANIMATION = { height: 0, opacity: 0 };
+const TASK_DELETE_TRANSITION = {
+  opacity: {
+    transition: {
+      duration: 0
+    }
+  }
+};
+
 const TaskList = ({
   searchTerm,
   filterType,
@@ -82,9 +91,8 @@ const TaskList = ({
               .includes(searchTerm)).map((task, i) => (
                 <ListItemContainerWrap 
                   key={task.id} 
-                  initial={{ opacity: 0 }}
-                  animate={{ opacity: 1 }}
-                  exit={{ opacity: 0 }}
+                  exit={TASK_DELETE_ANIMATION}
+                  transition={TASK_DELETE_TRANSITION}
                 >
                 <TaskItem
                   i={i}

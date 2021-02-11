@@ -1,7 +1,7 @@
 import React from 'react';
 import { useState, useEffect, useRef } from "react";
 import { useFirestore, useUser } from 'reactfire';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion, AnimatePresence, AnimateSharedLayout } from 'framer-motion';
 import { findIndex } from 'lodash';
 import { useMeasurePosition } from "../../hooks/useMeasurePosition";
 import { Badge, BadgeButton, ListItem, ListItemContainer, EndCap, TaskText, DeleteButton, CheckBox } from '../../styles/style';
@@ -66,24 +66,25 @@ function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosi
   }, [handleSetTaskList, newList, docRef, taskList]);
 
   return (
-    <>
+    <AnimateSharedLayout>
       <motion.div
         ref={ref}
         layout="position"
         drag
-        dragElastic={0.5}
+        onDragStart={() => setIsDragging(true)}
+        onDragEnd={(_, info) => {
+          setIsDragging(false);
+          handleDragEnd(info, task.id, i);
+        }}
         dragDirectionLock
         onDirectionLock={axis => axis === "x" ? setIsDraggingX(true) : setIsDraggingX(false)}
+        dragElastic={0.7}
+        dragPropagation={true}
         dragConstraints={{
           top: 0,
           bottom: 0,
           left: task.isSwiped ? DELETE_BTN_WIDTH * -1 : 0,
           right: 0
-        }}
-        onDragStart={() => setIsDragging(true)}
-        onDragEnd={(_, info) => {
-          setIsDragging(false);
-          handleDragEnd(info, task.id, i);
         }}
         onViewportBoxUpdate={(_, delta) => {
           if (isDragging) {
@@ -93,8 +94,7 @@ function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosi
         whileTap={{ cursor: "grabbing" }}
         whileHover={{ cursor: "grab" }}
         animate={{ x: task.isSwiped ? DELETE_BTN_WIDTH * -1 : 0 }}
-        transition={{ duration: 0.25 }}
-        style={{ zIndex: isDragging || isFocused ? 5999 : 1, position: "relative", background: "#212936" }}
+        style={{ zIndex: isDragging || isFocused ? 9 : 1, position: "relative", background: "#212936" }}
       >
         <ListItemContainer
           onMouseEnter={() => setIsHoveringListItem(true)}
@@ -141,10 +141,14 @@ function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosi
               }
             </AnimatePresence>
             <AnimatePresence>
-              {task.isOverdue && <Badge overdue variants={variants}
+              {task.isOverdue && <Badge
+                overdue
+                variants={variants}
                 initial="hidden"
                 animate="visible"
-                exit="hidden" style={{ right: 0, top: 0 }} className="blink">Overdue!</Badge>}
+                exit="hidden"
+                style={{ right: 0, top: 0 }}
+                className="blink">Overdue!</Badge>}
             </AnimatePresence>
             <TaskText
               contentEditable
@@ -184,7 +188,7 @@ function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosi
         onClick={() => deleteTask(i)}
         style={{ display: isDraggingX ? "flex" : "none" }}
       >Delete</DeleteButton>
-    </>
+    </AnimateSharedLayout>
   );
 }
 export default TaskItem;
