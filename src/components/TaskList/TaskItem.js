@@ -7,13 +7,11 @@ import { useMeasurePosition } from "../../hooks/useMeasurePosition";
 import { Badge, BadgeButton, ListItem, ListItemContainer, EndCap, TaskText, DeleteButton, CheckBox } from '../../styles/style';
 import { MdExpandMore } from 'react-icons/md';
 import ControlPanel from './ControlPanel';
-import { v4 as uuidv4 } from 'uuid';
 
 const DELETE_BTN_WIDTH = 70;
 
 function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosition, updateOrder, deleteTask, updateTask, handleDragEnd }) {
   const ref = useMeasurePosition((pos) => updatePosition(i, pos));
-  const taskRef = useRef(null);
   const [isFocused, setIsFocused] = useState(false);
   const [isDragging, setIsDragging] = useState(false);
   const [isDraggingX, setIsDraggingX] = useState(false);
@@ -31,43 +29,6 @@ function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosi
   function handleSetIsFocused(value) {
     setIsFocused(value);
   }
-
-  function handleKeyPress(e) {
-    if (e.key === "Enter") {
-      document.activeElement.blur();
-      taskRef.current.focus();
-      e.stopPropagation();
-    }
-  }
-  const taskEl = document.activeElement?.previousSibling?.previousSibling?.
-    parentElement?.parentElement?.parentElement?.parentElement?.lastChild;
-
-  function handleTaskItemKeyPress(e) {
-    if (e.key === "Enter") {
-      const docRef = db.collection('tasklist').doc(user.uid);
-      docRef.set({
-        tasks: [...taskList, {
-          id: uuidv4(),
-          title: "New Task",
-          height: "56",
-          isSwiped: false,
-          isCompleted: false,
-          isOpen: false,
-          dateCreated: Date.now(),
-          isOverdue: false,
-          isDueSoon: false,
-          distanceToNow: null,
-          dueDate: null,
-          dateCompleted: null
-        }]
-      }, { merge: true });
-      document.activeElement.focus();
-    }
-  }
-  const newTaskEl = taskEl?.firstChild?.firstChild?.firstChild?.nextSibling?.lastChild;
-  console.log(newTaskEl);
-  (() => newTaskEl && console.log(taskEl))();
-  (() => newTaskEl?.focus())();
 
   function handleOpen() {
     const tempTasks = taskList;
@@ -136,7 +97,6 @@ function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosi
         style={{ zIndex: isDragging || isFocused ? 5999 : 1, position: "relative", background: "#212936" }}
       >
         <ListItemContainer
-          onKeyDown={e => handleTaskItemKeyPress(e)}
           onMouseEnter={() => setIsHoveringListItem(true)}
           onMouseLeave={() => setIsHoveringListItem(false)}
         >
@@ -189,14 +149,12 @@ function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosi
             <TaskText
               contentEditable
               suppressContentEditableWarning
-              onKeyDown={e => handleKeyPress(e)}
               onBlur={e => updateTask(e, task.id)}
               className={task.isCompleted ? 'completed' : ''}
             >
               {task.title}
             </TaskText>
           </ListItem>
-          <button ref={taskRef} style={{ position: "absolute", left: "-100%" }} />
           <EndCap as="button" onClick={handleOpen}>
             <MdExpandMore
               style={{
