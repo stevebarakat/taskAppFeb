@@ -1,32 +1,33 @@
 import styled from 'styled-components/macro';
-import { inputBg, borderColor, textColor, bodyBg, activeColor } from './colors';
+import { inputBg, borderColor, textColor, bodyBg, activeColor, activeColorLite } from './colors';
 import { motion } from 'framer-motion';
 
-export const Badge = styled(motion.div)`
-  color: ${p => p.overdue ? activeColor : borderColor};
-  font-weight: 700;
-  font-size: 0.75rem;
-  display: inline-block;
-  line-height: 0.75rem;
-  position: absolute;
-  text-align: center;
-  padding: 0.15rem;
-  border-radius: 3px;
-`;
+function handleSetDueDateBadge(value) {
+  switch (value) {
+    case "overdue":
+      return "#03a9f3";
+    case "dueSoon":
+      return "#f56342";
+    default:
+      return "#fff";
+  }
+};
 
-export const BadgeButton = styled(motion.button)`
-  background: none;
-  border: none;
-  color: ${p => p.overdue ? activeColor : borderColor};
+export const Badge = styled(motion.div)`
+  color: ${({ value }) => handleSetDueDateBadge(value)};
+  border: ${p => p.overdue ? `1px solid transparent` : `1px solid ${borderColor}`};
+  background: ${p => p.overdue ? activeColor : bodyBg};
+  text-transform: uppercase;
   font-weight: 700;
-  font-size: 0.75rem;
+  font-size: 0.65rem;
   display: inline-block;
-  line-height: 0.75rem;
+  line-height: 0.65rem;
   position: absolute;
   text-align: center;
   padding: 0.15rem;
   border-radius: 3px;
-`
+  margin-top: 0.1rem;
+`;
 
 export const Container = styled.div`
   max-width: 100%;
@@ -34,7 +35,7 @@ export const Container = styled.div`
   border: 1px solid ${borderColor};
   margin: 0 auto;
   padding-bottom: 0.5rem;
-  `;
+`;
 
 export const Content = styled.main`
   min-height: 100%;
@@ -167,7 +168,6 @@ export const ListItem = styled.div`
 `;
 
 export const ListItemContainer = styled.div`
-  /* background: #212936; */
   position: relative;
   display: grid;
   grid-template-columns: 35px 1fr 50px;
@@ -460,20 +460,6 @@ export const RadioButton = styled.input`
     bottom: 2px;
     left: 2px;
   }
-`;
-
-export const TimeSelectWrap = styled.div`
-  border: 1px solid ${borderColor};
-  display: inline-block;
-  padding: 0.25rem;
-  border-radius: 3px;
-  background: ${inputBg};
-  `;
-
-export const TimeSelect = styled.select`
-  color: ${textColor};
-  background: transparent;
-  border: none;
 `;
 
 export const StyledModal = styled(motion.div)`
