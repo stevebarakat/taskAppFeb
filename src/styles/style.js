@@ -27,6 +27,7 @@ export const Badge = styled(motion.div)`
   padding: 0.15rem;
   border-radius: 3px;
   margin-top: 0.1rem;
+  z-index: 99;
 `;
 
 export const Container = styled.div`

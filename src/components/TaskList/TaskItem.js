@@ -114,7 +114,7 @@ function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosi
           </EndCap>
           <ListItem>
             <AnimatePresence>
-              {(isHoveringListItem && !task.isOverdue) &&
+              {(isHoveringListItem && !task.isOverdue && !task.isOpen) &&
                 <Badge
                   variants={variants}
                   initial="hidden"

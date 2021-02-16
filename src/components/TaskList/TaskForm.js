@@ -57,7 +57,7 @@ const TaskForm = ({ handleSetSearchTerm, searchTerm, taskList }) => {
       {isHovering && 
       <Badge 
         color="textColor"
-        style={{ left: "1rem", top: "-1.35rem" }}
+        style={{ left: "1rem", top: "-1.6rem" }}
         variants={variants}
         initial="hidden"
         animate="visible"
