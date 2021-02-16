@@ -134,7 +134,7 @@ function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosi
                   initial="hidden"
                   animate="visible"
                   exit="hidden"
-                  style={{ right: 0, top: 0 }}
+                  style={{ right: 0, top: 0, cursor: "pointer" }}
                 >
                   Set Due Date
                 </Badge>
