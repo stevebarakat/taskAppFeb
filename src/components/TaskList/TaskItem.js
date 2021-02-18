@@ -70,7 +70,7 @@ function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosi
       <motion.div
         ref={ref}
         layout="position"
-        drag
+        drag={task.isOpen ? false : true}
         onDragStart={() => setIsDragging(true)}
         onDragEnd={(_, info) => {
           setIsDragging(false);
