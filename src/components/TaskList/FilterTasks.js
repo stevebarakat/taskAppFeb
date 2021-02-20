@@ -41,7 +41,7 @@ export default function FilterTasks({
             value="dueSoon"
             defaultChecked={filterType === 'dueSoon'}
           />
-        Due Soon
+        Soon
       </label>
       </OptionWrap>
       <OptionWrap>

@@ -31,12 +31,12 @@ export const Badge = styled(motion.div)`
 `;
 
 export const Container = styled.div`
-  max-width: 100%;
+  max-width: 100vw;
   width: 370px;
   border: 1px solid ${borderColor};
   margin: 0 auto;
   padding-bottom: 0.5rem;
-  overflow: hidden;
+  /* overflow: hidden; */
 `;
 
 export const Content = styled.main`
