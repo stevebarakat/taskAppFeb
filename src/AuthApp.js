@@ -63,14 +63,6 @@ function AuthApp({ logOutUser }) {
     docRef.update({ tasks: taskList });
   };
 
-  const setDateCompleted = (time, id) => {
-    const tempTasks = taskList;
-    const taskIndex = findIndex(taskList, { id });
-    tempTasks[taskIndex].dateCompleted = time;
-    setTaskList(tempTasks);
-    docRef.update({ tasks: taskList });
-  };
-
   const setDueDate = (formattedDate, dueSoon, overdue, distanceToNow, id) => {
     const tempTasks = taskList;
     const taskIndex = findIndex(taskList, { id });
@@ -111,7 +103,6 @@ function AuthApp({ logOutUser }) {
         filterType={filterType}
         updateTask={updateTask}
         setDueDate={setDueDate}
-        setDateCompleted={setDateCompleted}
       />
     </Layout>
   );

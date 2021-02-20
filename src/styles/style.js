@@ -36,11 +36,11 @@ export const Container = styled.div`
   border: 1px solid ${borderColor};
   margin: 0 auto;
   padding-bottom: 0.5rem;
+  overflow: hidden;
 `;
 
 export const Content = styled.main`
   min-height: 100%;
-  max-width: 800px;
   margin: 0 1rem 1rem;
   padding: 0;
 `;
