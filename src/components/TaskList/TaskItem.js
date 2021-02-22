@@ -1,5 +1,5 @@
 import React from 'react';
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
 import { useFirestore, useUser } from 'reactfire';
 import { motion, AnimatePresence, AnimateSharedLayout } from 'framer-motion';
 import { findIndex } from 'lodash';

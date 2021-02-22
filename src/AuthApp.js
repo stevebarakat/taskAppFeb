@@ -14,18 +14,9 @@ function AuthApp({ logOutUser }) {
   const localStorageRef = JSON.parse(localStorage.getItem(user.uid));
   const docRef = db.collection('tasklist').doc(user.uid);
 
-  const initialTaskList = () => {
-    try {
-      return localStorageRef?.taskList ?? initialTasks;
-    } catch {
-      console.error('The tasks are having issues parsing into JSON.');
-      return initialTasks;
-    }
-  };
-
-  const [taskList, setTaskList] = useState(initialTaskList);
+  const [taskList, setTaskList] = useState(initialTasks);
   const [searchTerm, setSearchTerm] = useState("");
-  const initialFilterType = () => localStorageRef?.filterType ?? 'all';
+  const initialFilterType = () => localStorageRef?.filterType ?? "all";
   const [filterType, setFilterType] = useState(initialFilterType);
 
   const handleSetFilterType = (type) => {
@@ -50,10 +41,9 @@ function AuthApp({ logOutUser }) {
     setTaskList(taskList);
     localStorage.setItem(user.uid,
       JSON.stringify({
-        filterType,
-        taskList
+        filterType
       }));
-  }, [taskList, filterType, user.uid]);
+  }, [filterType, user.uid]);
 
   const updateTask = (e, id) => {
     const tempTasks = taskList;

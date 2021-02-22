@@ -36,7 +36,7 @@ export const Container = styled.div`
   border: 1px solid ${borderColor};
   margin: 0 auto;
   padding-bottom: 0.5rem;
-  /* overflow: hidden; */
+  overflow: hidden;
 `;
 
 export const Content = styled.main`
@@ -61,13 +61,16 @@ export const BtnLink = styled.button`
 
 export const EndCap = styled.div`
   display: flex;
-  font-size: 1.25rem;
   text-align: center;
   color: ${borderColor};
   &:hover,
   &:focus{
     cursor: pointer;
     color: ${textColor};
+  }
+  svg{
+    width: 2rem;
+    height: 2rem;
   }
 `;
 
