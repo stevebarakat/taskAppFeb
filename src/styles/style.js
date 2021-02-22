@@ -31,7 +31,7 @@ export const Badge = styled(motion.div)`
 `;
 
 export const Container = styled.div`
-  max-width: 100vw;
+  max-width: 100%;
   width: 370px;
   border: 1px solid ${borderColor};
   margin: 0 auto;
