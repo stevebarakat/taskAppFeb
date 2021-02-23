@@ -36,7 +36,7 @@ export const Container = styled.div`
   border: 1px solid ${borderColor};
   margin: 0 auto;
   padding-bottom: 0.5rem;
-  overflow: hidden;
+  /* overflow: hidden; */
 `;
 
 export const Content = styled.main`
