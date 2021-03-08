@@ -87,9 +87,7 @@ function TaskItem({ i, task, taskList, handleSetTaskList, setDueDate, updatePosi
           right: 0
         }}
         onViewportBoxUpdate={(_, delta) => {
-          if (isDragging) {
-            updateOrder(i, delta.y.translate);
-          }
+          isDragging && updateOrder(i, delta.y.translate);
         }}
         whileTap={{ cursor: "grabbing" }}
         whileHover={{ cursor: "grab" }}
