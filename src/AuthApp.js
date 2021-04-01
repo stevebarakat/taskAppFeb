@@ -9,10 +9,19 @@ import useUpdateLocalState from './hooks/useUpdateLocalState';
 import initialTasks from './initialTasks';
 
 function AuthApp({ logOutUser }) {
+  const [isLoading, setIsLoading] = useState(true);
   const user = useUser();
   const db = useFirestore();
   const localStorageRef = JSON.parse(localStorage.getItem(user.uid));
   const docRef = db.collection('tasklist').doc(user.uid);
+
+  const tasks = docRef.get().then(doc => {
+    console.log(doc.data());
+    setIsLoading(false);
+    return doc.data().tasks;
+  });
+
+  console.log(tasks)
 
   const initialTaskList = () => {
     try {
@@ -93,7 +102,7 @@ function AuthApp({ logOutUser }) {
         filterType={filterType}
         handleSetFilterType={handleSetFilterType}
       />
-      <TaskList
+      {isLoading ? "...loading" : <TaskList
         searchTerm={searchTerm}
         taskList={taskList}
         deleteTask={deleteTask}
@@ -103,7 +112,7 @@ function AuthApp({ logOutUser }) {
         filterType={filterType}
         updateTask={updateTask}
         setDueDate={setDueDate}
-      />
+      />}
     </Layout>
   );
 }
