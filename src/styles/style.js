@@ -91,13 +91,19 @@ export const Button = styled.button`
     background: 'hsla(207, 96%, 91%, 0.5)';
     color: ${textColor};
     border: 1px solid ${textColor};
-    border-bottom: 2px solid ${textColor};
+    /* border-bottom: 2px solid ${textColor}; */
   };
   &:hover span:nth-child(2) {
     border: 1px solid ${textColor};
   }
   & svg{
     font-size: 1.25rem;
+  }
+  & label {
+    & input {
+    font-size: 4rem;
+      border: "3px solid pink";
+    }
   }
 `;
 

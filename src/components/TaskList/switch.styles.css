@@ -1,22 +1,20 @@
-/*
-toggle styles copied and modified from
-https://codepen.io/mallendeo/pen/eLIiG
-by Mauricio Allende (https://mallendeo.com/)
- */
 .toggle-btn {
   box-sizing: initial;
   display: inline-block;
   outline: 0;
-  width: 8em;
-  height: 4em;
+  width: 35px;
+  height: 20px;
   position: relative;
   cursor: pointer;
   user-select: none;
-  background: #fbfbfb;
   border-radius: 4em;
-  padding: 4px;
+  padding: 2px;
   transition: all 0.4s ease;
-  border: 2px solid #e8eae9;
+  border: 2px solid hsl(214, 4%, 57%) !important;
+  &::hover {
+    border: 2px solid white !important;
+    padding: 3rem;
+  }
 }
 .toggle-input:focus + .toggle-btn::after,
 .toggle-btn:active::after {
@@ -28,11 +26,11 @@ by Mauricio Allende (https://mallendeo.com/)
   left: 0;
   position: relative;
   display: block;
-  content: '';
+  content: "";
   width: 50%;
   height: 100%;
   border-radius: 4em;
-  background: #fbfbfb;
+  background: hsl(214, 4%, 57%);
   transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275),
     padding 0.3s ease, margin 0.3s ease;
   box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1), 0 4px 0 rgba(0, 0, 0, 0.08);
@@ -41,7 +39,7 @@ by Mauricio Allende (https://mallendeo.com/)
   left: 50%;
 }
 .toggle-btn.toggle-btn-on {
-  background: #86d993;
+  background: var(--activeColor);
 }
 .toggle-btn.toggle-btn-on:active {
   box-shadow: none;

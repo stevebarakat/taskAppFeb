@@ -5,6 +5,7 @@ import { RiAddLine } from 'react-icons/ri';
 import { IoMdArrowRoundDown } from 'react-icons/io';
 import { BsPencil, BsSearch } from 'react-icons/bs';
 import { useFirestore, useUser } from 'reactfire';
+import { Switch } from './Switch';
 
 const variants = {
   visible: { opacity: 1 },
@@ -17,6 +18,7 @@ const TaskForm = ({ handleSetSearchTerm, searchTerm, taskList }) => {
   const [isSearch, setIsSearch] = useState(false);
   const [isHovering, setIsHovering] = useState(false);
   const [newTask, setNewTask] = useState('');
+  const [clicked, setClicked] = useState(false);
 
   const handleSearch = (e) => {
     e.preventDefault();
@@ -24,7 +26,7 @@ const TaskForm = ({ handleSetSearchTerm, searchTerm, taskList }) => {
   };
 
   const handleToggleSearch = () => {
-    setIsSearch(isSearch => !isSearch);
+    setClicked(clicked => !clicked);
     handleSetSearchTerm("");
   };
 
@@ -54,34 +56,35 @@ const TaskForm = ({ handleSetSearchTerm, searchTerm, taskList }) => {
 
   return (
     <TaskFormContainer>
-      {isHovering && 
-      <Badge 
-        color="textColor"
-        style={{ left: "1rem", top: "-1.6rem" }}
-        variants={variants}
-        initial="hidden"
-        animate="visible"
-        exit="hidden"
-      ><IoMdArrowRoundDown 
-        style={{fontSize: "1rem", verticalAlign: "middle", borderColor: "red"}} 
-      />Toggle Search</Badge>}
+      {/* {isHovering &&
+        <Badge
+          color="textColor"
+          style={{ left: "1rem", top: "-1.35rem" }}
+          variants={variants}
+          initial="hidden"
+          animate="visible"
+          exit="hidden"
+        ><IoMdArrowRoundDown
+            style={{ fontSize: "1rem", verticalAlign: "middle", borderColor: "red" }}
+          />Toggle Search</Badge>} */}
       <TaskFormForm
         onMouseEnter={() => setIsHovering(true)}
         onMouseLeave={() => setIsHovering(false)}
       >
         <Button
-          onClick={handleToggleSearch}
-          onMouseOver={handleToggleSearch}
-          onMouseOut={handleToggleSearch}
           secondary
-        >{isSearch ? <BsSearch /> : <BsPencil />}
+          style={{padding: "1em 0.5em" }}
+        ><Switch
+            on={clicked}
+            onClick={handleToggleSearch}
+          />
         </Button>
         <form
           onSubmit={e => addTask(e)}
           style={{ flexGrow: 1 }}
         >
           <Flex>
-            {isSearch ?
+            {clicked ?
               <>
                 <TextInput
                   id="search"
